@@ -11,18 +11,6 @@ import GameKit
 
 class ViewController: UIViewController {
 
-    
-    // update movement status of pieces
-    
-    // pan:
-    // check if piece can be moved
-    // only allow movement in open direction
-    // stop movement at border
-    // set piece in exact location: use matching gameboard square origin
-    // update location of piece: done in above step
-    // update movement status of pieces
-    
-    
     //******************************************//
     //***************  Properties **************//
     //******************************************//
@@ -72,25 +60,142 @@ class ViewController: UIViewController {
     
     // handle user touch
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        // update the imageView based on user panning
+        // var to hold the puzzlePiece being moved
+        var puzzlePiece: PuzzlePiece?
+        
+        // get the translation
         let translation = recognizer.translation(in: self.view)
+        
+        // get the view
         if let view = recognizer.view {
+            //set the puzzlePiece
+            puzzlePiece = getCurrentPuzzlePiece(view: view)
             
-            if (getCurrentPuzzlePiece(view: view)?.openDirection != PuzzlePiece.OpenDirection.none) {
-                view.superview?.bringSubview(toFront: view)
-                
-                // horizontal movement
-    //            view.center = CGPoint(x:view.center.x + translation.x,
-    //                                  y:view.center.y + translation.y)
-                
-                // vertical movement
-                view.center = CGPoint(x:view.center.x,
-                                      y:view.center.y + translation.y)
+            // get open direction
+            let openDirection = puzzlePiece?.openDirection
+
+            // vars to identify type of movement: vertical or horizontal
+            let isVerticalMove = (openDirection == PuzzlePiece.OpenDirection.up ||
+                openDirection == PuzzlePiece.OpenDirection.down)
+            let isHorizontalMove = (openDirection == PuzzlePiece.OpenDirection.right ||
+                openDirection == PuzzlePiece.OpenDirection.left)
+            
+            // bring puzzlePiece to front
+            view.superview?.bringSubview(toFront: view)
+
+            // move (translate) puzzlePiece based on type of movement: vertical or horizontal
+            if isVerticalMove {
+                // check if valid move: not out of bounds or colliding with another puzzlePiece
+                if (isValidMove(puzzlePiece: puzzlePiece!)) {
+                    // vertical movement
+                    view.center = CGPoint(x:view.center.x, y:view.center.y + translation.y)
+                }
+            } else if isHorizontalMove {
+                // check if valid move: not out of bounds or colliding with another puzzlePiece
+                if (isValidMove(puzzlePiece: puzzlePiece!)) {
+                    // horizontal movement
+                    view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y)
+                }
             }
         }
+        
+        // reset the translation
         recognizer.setTranslation(CGPoint.zero, in: self.view)
+        
+        // end of pan gesture
+        if (recognizer.state == UIGestureRecognizerState.ended) {
+            // set piece in final location -> ANIMATE???
+            puzzlePiece?.currentLocation = getClosestGameBoardSquare(puzzlePiece: puzzlePiece!)!
+            
+            // update open status
+            updateOpenDirectionForPuzzlePieces()
+            
+            // highlight that is in correct position
+            if (puzzlePiece?.isCorrectLocation())! {
+                puzzlePiece?.imageView.alpha = 0.5
+            } else {
+                puzzlePiece?.imageView.alpha = 1.0
+            }
+            
+        }
     }
-
+    
+    // check if puzzlePiece is intersecting any other puzzle pieces or outside bounds
+    private func isValidMove(puzzlePiece: PuzzlePiece) -> Bool {
+        // loop through all the puzzle pieces
+        for otherPuzzlePiece in puzzlePieces {
+            // get the frame for this puzzle piece and that (other) puzzle piece
+            let thisRect = puzzlePiece.imageView.frame
+            let thatRect = otherPuzzlePiece.imageView.frame
+            
+            // set booleans to check if valid move
+            let isSamePuzzlePiece = (thisRect == thatRect) // if the rects are identical, then same puzzle piece
+            let isIntersection = (thisRect.intersects(thatRect) && !isSamePuzzlePiece)  // check if intersects the rect of other puzzle piece
+            let isOutsideBounds = isOutsideJumbleView(frame: thisRect)  // check if outside bounds
+            
+            // if outside bounds or intersectection then not valid move
+            if (isOutsideBounds || isIntersection) {
+                return false
+            }
+        }
+        
+        // not outside bounds or intersection found: valid move
+        return true
+    }
+    
+    // check if frame is outside of bounds
+    private func isOutsideJumbleView(frame: CGRect) -> Bool {
+        // set values of x and y boundaries based on view that holds gameBoard
+        let minX = jumbleView.frame.origin.x
+        let minY = jumbleView.frame.origin.y
+        let maxX = minX + jumbleView.frame.width
+        let maxY = minY + jumbleView.frame.height
+        
+        // set booleans to check if frame is inside max bounds
+        let isOutsideLeftBounds = (frame.origin.x < minX)
+        let isOutsideRightBounds = (frame.origin.x + frame.width > maxX)
+        let isOutsideUpperBounds = (frame.origin.y < minY)
+        let isOutsideLowerBounds = (frame.origin.y + frame.height > maxY)
+        
+        // return if inside all boundaries
+        return (isOutsideLeftBounds || isOutsideRightBounds || isOutsideUpperBounds || isOutsideLowerBounds)
+    }
+    
+    // get closest gameBoardSquare for a puzzlePiece
+    private func getClosestGameBoardSquare(puzzlePiece: PuzzlePiece) -> Square? {
+        // define var to return the gameboard square that is closest
+        var closestGameBoardSquare: Square?
+        
+        // define the center of the puzzlePiece and var to track closest distance
+        let puzzlePieceCenter = puzzlePiece.imageView.center // use center of imageview
+        var closestDistance = CGFloat.greatestFiniteMagnitude  // initialize to max value
+        
+        // loop through all gameboard squares
+        for gameBoardSquare in gameBoard {
+            // get the center of the square
+            let gameBoardSquareCenter = CGPoint(x: gameBoardSquare.square.midX, y: gameBoardSquare.square.midY)
+            
+            // get the distance from puzzlePiece to this square
+            let thisDistance = distance(a: puzzlePieceCenter, b: gameBoardSquareCenter)
+            
+            // update if this is smallest distance found
+            if (thisDistance < closestDistance) {
+                closestDistance = thisDistance  // set as new closest distance
+                closestGameBoardSquare = gameBoardSquare  // set as new closest square
+            }
+        }
+        
+        // return the gameboard square that is closest
+        return closestGameBoardSquare
+    }
+    
+    // helper function to calculate distance between two points
+    func distance(a: CGPoint, b: CGPoint) -> CGFloat {
+        let xDist = a.x - b.x
+        let yDist = a.y - b.y
+        return CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
+    }
+    
     //******************************************//
     //************  Original Image *************//
     //******************************************//
@@ -186,28 +291,25 @@ class ViewController: UIViewController {
         
         // create a puzzlePiece for each gameboard square except bottom right
         for index in 0...maxIndex {
-            let square = gameBoard[index].square  // square from gameBoard piece
-            let imageView = UIImageView(frame: square)  // create imageview
+            let gameBoardSquare = gameBoard[index]
+            let frame = gameBoardSquare.square  // square from gameBoard piece
+            let imageView = UIImageView(frame: frame)  // create imageview
             imageView.image = imagePieces[index]  // assign image to imageview
             imageView.layer.borderWidth = border // set border width for imageview
             imageView.layer.borderColor = UIColor.black.cgColor  // set border color for imageview
-            let puzzlePiece = PuzzlePiece(imageView: imageView, correctLocation: index, currentLocation: index)
+            let puzzlePiece = PuzzlePiece(imageView: imageView, correctLocation: gameBoardSquare, currentLocation: gameBoardSquare)
             puzzlePieces.append(puzzlePiece)
         }
     }
     
     // jumble puzzle pieces
     private func jumblePuzzlePieces() {
-        // set max index based on number of puzzles pieces
-        let maxIndex = puzzlePieces.count - 1
-        
         // shuffle the puzzle pieces
         puzzlePieces.shuffle()
         
-        // // update the current location and frame location for each puzzle piece
-        for index in 0...maxIndex {
-            puzzlePieces[index].currentLocation = index
-            puzzlePieces[index].imageView.frame.origin = gameBoard[index].square.origin
+        // set the current location
+        for index in 0...(puzzlePieces.count-1) {
+            puzzlePieces[index].currentLocation = gameBoard[index]
         }
     }
     
@@ -227,8 +329,9 @@ class ViewController: UIViewController {
     
     // dump info about each puzzle piece to console
     private func dumpPuzzlePieceInfo() {
+        print("****")
         for piece in puzzlePieces {
-            print("current location: \(piece.currentLocation), correct location: \(piece.correctLocation), status: \(piece.isCorrectLocation()), open: \(piece.openDirection)")
+            piece.dumpInfo()
         }
     }
 
@@ -237,7 +340,12 @@ class ViewController: UIViewController {
     //******************************************//
     
     private func updateOpenDirectionForPuzzlePieces() {
-        // loop through all squares
+        // loop through all puzzle pieces and set open direction to none (default)
+        for puzzlePiece in puzzlePieces {
+            puzzlePiece.openDirection = PuzzlePiece.OpenDirection.none
+        }
+        
+        // loop through all squares to find one without puzzle piece: update adjacent puzzlePiece's openDirection
         for gameBoardSquare in gameBoard {
             // if there is no puzzle piece, then this is an empty gameBoard square: update adjacent squares
             if !hasPuzzlePiece(gameBoardSquare: gameBoardSquare) {
@@ -277,6 +385,21 @@ class ViewController: UIViewController {
         }
     }
     
+    // get a gameBoard Square based on origin point
+    private func getGameBoardSquare(origin: CGPoint) -> Square? {
+        // loop through all gameBoard squares
+        for gameBoardSquare in gameBoard {
+            // check if origin matches
+            if (gameBoardSquare.square.origin == origin) {
+                return gameBoardSquare
+            }
+        }
+        
+        // no match found -> return nil
+        return nil
+    }
+    
+    
     // get a gameBoard Square based on a row and col
     private func getGameBoardSquare(row: Int, col: Int) -> Square? {
         // loop through all gameBoard squares
@@ -302,7 +425,9 @@ class ViewController: UIViewController {
         }
         
         // no match -> return nil
+        print("no puzzle piece at row: \(gameBoardSquare.row), col: \(gameBoardSquare.col)")
         return nil
+        
     }
     
     // check if gameBoardSquare has a puzzlePiece

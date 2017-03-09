@@ -18,12 +18,17 @@ class PuzzlePiece {
         case none
     }
     
-    var imageView: UIImageView
-    var correctLocation: Int
-    var currentLocation: Int
     var openDirection: OpenDirection
+    var imageView: UIImageView
+    var correctLocation: Square
+    var currentLocation: Square {
+        didSet {
+            updateImageView()
+        }
+    }
     
-    init(imageView: UIImageView, correctLocation: Int, currentLocation: Int) {
+    
+    init(imageView: UIImageView, correctLocation: Square, currentLocation: Square) {
         self.imageView = imageView
         self.correctLocation = correctLocation
         self.currentLocation = currentLocation
@@ -31,7 +36,16 @@ class PuzzlePiece {
     }
     
     func isCorrectLocation() -> Bool {
-        return currentLocation == correctLocation
+        return (self.currentLocation === self.correctLocation)  // DO I NEED TO IMPLEMENT EQUATABLE?
+    }
+    
+    // update the imageView when the location is updated
+    func updateImageView() {
+        self.imageView.frame = currentLocation.square
+    }
+    
+    func dumpInfo() {
+        print("row: \(currentLocation.row), col: \(currentLocation.col), open: \(openDirection), homeRow: \(correctLocation.row), homeCol: \(correctLocation.col)")
     }
     
 }
