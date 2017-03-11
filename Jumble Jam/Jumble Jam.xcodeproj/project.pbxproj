@@ -16,6 +16,7 @@
 		FCB4BB521E6F73E100150B8E /* PuzzlePiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */; };
 		FCB4BB541E6F7A2900150B8E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB531E6F7A2900150B8E /* Square.swift */; };
 		FCB4BB561E7234A400150B8E /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB551E7234A400150B8E /* GameBoard.swift */; };
+		FCB4BB5C1E74714700150B8E /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB5B1E74714700150B8E /* PictureCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzlePiece.swift; sourceTree = "<group>"; };
 		FCB4BB531E6F7A2900150B8E /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		FCB4BB551E7234A400150B8E /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		FCB4BB5B1E74714700150B8E /* PictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				FCB4BB551E7234A400150B8E /* GameBoard.swift */,
 				FCB4BB531E6F7A2900150B8E /* Square.swift */,
 				FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */,
+				FCB4BB5B1E74714700150B8E /* PictureCell.swift */,
 				FCB4BB411E68FED100150B8E /* Main.storyboard */,
 				FCB4BB441E68FED100150B8E /* Assets.xcassets */,
 				FCB4BB461E68FED100150B8E /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB4BB5C1E74714700150B8E /* PictureCell.swift in Sources */,
 				FCB4BB541E6F7A2900150B8E /* Square.swift in Sources */,
 				FCB4BB521E6F73E100150B8E /* PuzzlePiece.swift in Sources */,
 				FCB4BB501E6E469400150B8E /* ToDo.swift in Sources */,

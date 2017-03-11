@@ -9,13 +9,13 @@
 import Foundation
 
 
-// - add collectionView to select image
-    // - add more template pics -> decide how to select images, maybe based on level?
-    // - only some images visible based on level
+// - ISSUE: jumble button?
 
 // - game over:
     // - win message screen: congrats, points, level, then ok
     // - start new level: choose new image screen
+
+// - improve starting game: show initial image, then jumble
 
 // - store user points and level in user defaults
 
@@ -23,13 +23,13 @@ import Foundation
     // - straight into view with original image, message overlay with instructions & instructions
 // - alert - gameWin, power ups
 // - settings
+
 // - marketing write up
 // - executive summary
 // - demo
 // - check logging
 // - extract attributions
 // - instructions
-
 
 // - difficulty: 9, 16, 25 (accessible based on level)
 // - variable rewards:
@@ -39,6 +39,7 @@ import Foundation
 
     // - track user points and level
 // - level up:
+    // - only some images visible based on level
     // - more special powers on higher levels (type and frequency)
     // - more difficulty levels
     // - special bonus rounds

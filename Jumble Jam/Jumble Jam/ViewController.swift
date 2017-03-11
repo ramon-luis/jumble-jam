@@ -24,17 +24,28 @@ class ViewController: UIViewController {
     // variables
     var jumbleView: UIView?
     var screenWidth: CGFloat = 375  // placeholder
-    var originalImageView: UIImageView?
-    var originalImage: UIImage?
+    var puzzleImageView: UIImageView?
+    var puzzleImage: UIImage?
     var gameBoard = [Square]()
     var imagePieces = [UIImage]()
     var puzzlePieces = [PuzzlePiece]()
-    let border: CGFloat = 2.0
+    let borderWidth: CGFloat = 2.0
+    let borderColor: CGColor = UIColor.white.cgColor
     var piecesPerRow: Int = 0 {
         didSet {
             pieceCount = piecesPerRow * piecesPerRow
         }
     }
+    
+    @IBOutlet weak var picturesView: UIView!
+    @IBOutlet weak var picturesHeaderView: UIView!
+    @IBOutlet weak var picturesCollectionView: UICollectionView!
+    let reuseIdentifier = "PictureCell"
+    let sectionInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)  // collectionView formatting
+    let itemsPerRow: CGFloat = 1    // collectionView formatting
+    var pictures = [UIImage]()
+    var puzzleCount = 43
+    
     
     // difficulty: # of pieces per row & col
     let easy: Int = 3
@@ -65,6 +76,8 @@ class ViewController: UIViewController {
         // show collection view controller
         // existing images: some disabled
         // add photo from camera or photo roll
+        
+        showPictures()
     }
     @IBAction func difficultyButton(_ sender: UIButton) {
         // reveal difficulty view
@@ -83,7 +96,9 @@ class ViewController: UIViewController {
         difficultySelected(sender: sender)
         piecesPerRow = easy
         clearPuzzle()
-        setPuzzle()
+        if let image = puzzleImage {
+            setPuzzle(picture: image)
+        }
         toggleDifficultyView()
     }
     
@@ -91,7 +106,9 @@ class ViewController: UIViewController {
         difficultySelected(sender: sender)
         piecesPerRow = medium
         clearPuzzle()
-        setPuzzle()
+        if let image = puzzleImage {
+            setPuzzle(picture: image)
+        }
         toggleDifficultyView()
     }
     
@@ -99,7 +116,9 @@ class ViewController: UIViewController {
         difficultySelected(sender: sender)
         piecesPerRow = hard
         clearPuzzle()
-        setPuzzle()
+        if let image = puzzleImage {
+            setPuzzle(picture: image)
+        }
         toggleDifficultyView()
     }
     
@@ -107,7 +126,9 @@ class ViewController: UIViewController {
         difficultySelected(sender: sender)
         piecesPerRow = extreme
         clearPuzzle()
-        setPuzzle()
+        if let image = puzzleImage {
+            setPuzzle(picture: image)
+        }
         toggleDifficultyView()
     }
     
@@ -142,6 +163,11 @@ class ViewController: UIViewController {
         difficultyButtons.append(mediumButton)
         difficultyButtons.append(hardButton)
         difficultyButtons.append(extremeButton)
+        
+        // round edges
+        for button in difficultyButtons {
+            button.layer.cornerRadius = 15
+        }
 
         // set based on user defaults
         difficultySelected(sender: easyButton)
@@ -169,7 +195,7 @@ class ViewController: UIViewController {
         selectButton(button: sender)
     }
     
-    private func clearPuzzle() {
+    func clearPuzzle() {
         gameBoard.removeAll()
         imagePieces.removeAll()
         puzzlePieces.removeAll()
@@ -182,7 +208,28 @@ class ViewController: UIViewController {
     }
     
 
-    private func setPuzzle() {
+    func setPictures() {
+        let maxIndex = puzzleCount - 1
+        for index in 0...maxIndex {
+            let pictureName = "puzzle\(index).png"
+            if let image = UIImage(named: pictureName) {
+                pictures.append(image)
+            }
+        }
+    }
+    
+    
+    func setPuzzle(picture: UIImage) {
+        // check for last user
+  
+            
+//            let frame = CGRect(x: 0, y: 0, width: (jumbleView?.frame.width)!, height: (jumbleView?.frame.height)!)
+//            puzzleImageView = UIImageView(frame: frame)
+//            puzzleImageView?.image = pictures.first!
+//            jumbleView?.addSubview(puzzleImageView!)
+//            puzzleImageView?.isHidden = true
+        
+        setPuzzleImage(image: picture)
         setGameBoard()
         setImagePieces()
         createPuzzlePieces()
@@ -190,6 +237,7 @@ class ViewController: UIViewController {
         showPuzzlePieces()
         updateOpenDirectionForPuzzlePieces()
         addPlayerControl()
+        
         dumpPuzzlePieceInfo()
     }
     
@@ -202,15 +250,24 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 //        loadInitialImage()
         
+        // setup the pictures view
+        setPictures()
+        
+        picturesCollectionView.delegate = self
+        picturesCollectionView.dataSource = self
+        cropAllPictures()
+        
         setScreenWidth()
         setJumbleView()
         initializeDifficultyButtonArray()
         
-        setOriginalImage()
         piecesPerRow = easy
-//        pieceCount = piecesPerRow * piecesPerRow
         clearPuzzle()
-        setPuzzle()
+        
+        if (!pictures.isEmpty) {
+            let image = pictures.first!
+            setPuzzle(picture: image)
+        }
     }
 
     //******************************************//
@@ -241,48 +298,12 @@ class ViewController: UIViewController {
         
             // get open direction
             let openDirection = puzzlePiece.openDirection
-
-            // vars to identify type of movement: vertical or horizontal
-            let isVerticalMove = (openDirection == PuzzlePiece.OpenDirection.up ||
-                openDirection == PuzzlePiece.OpenDirection.down)
-            let isHorizontalMove = (openDirection == PuzzlePiece.OpenDirection.right ||
-                openDirection == PuzzlePiece.OpenDirection.left)
-            
             
             // bring puzzlePiece to front
             view.superview?.bringSubview(toFront: view)
-            
-            print("trying pan")
-
-//            // move (translate) puzzlePiece based on type of movement: vertical or horizontal
-//            if isVerticalMove {
-            
-                let target = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
-                let final = getFinalPoint(puzzlePiece: puzzlePiece, targetPoint: target)
-                print("have target and final")
-                view.center = final
-                print("view updated")
-                
-//                // check if valid move: not out of bounds or colliding with another puzzlePiece
-//                if (isValidMove(puzzlePiece: puzzlePiece!)) {
-//                    // vertical movement
-//                    view.center = CGPoint(x:view.center.x, y:view.center.y + translation.y)
-//                }
-//            } else if isHorizontalMove {
-//                
-//                let target = CGPoint(x:view.center.x + translation.x, y:view.center.y)
-//                let final = getFinalPoint(puzzlePiece: puzzlePiece, targetPoint: target)
-//                view.center = final
-//                
-//                
-////                // check if valid move: not out of bounds or colliding with another puzzlePiece
-////                if (isValidMove(puzzlePiece: puzzlePiece!)) {
-////                    // horizontal movement
-////                    view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y)
-////                }
-//            }
-            
-            
+            let target = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
+            let final = getFinalPoint(puzzlePiece: puzzlePiece, targetPoint: target)
+            view.center = final
         }
         
         // reset the translation
@@ -308,8 +329,6 @@ class ViewController: UIViewController {
                 } else {
                     print ("game over: false")
                 }
-                
-                dumpPuzzlePieceInfo()
             }
         }
 
@@ -325,9 +344,7 @@ class ViewController: UIViewController {
     // get final point based on puzzlePiece movement limits
     private func getFinalPoint(puzzlePiece: PuzzlePiece, targetPoint: CGPoint) -> CGPoint {
         // get the x and y values based on available movement range
-        print("target x")
         let x = getValueInRange(target: targetPoint.x,  min: puzzlePiece.minX, max: puzzlePiece.maxX)
-        print("target y")
         let y = getValueInRange(target: targetPoint.y,  min: puzzlePiece.minY, max: puzzlePiece.maxY)
         
         // return final point
@@ -336,7 +353,6 @@ class ViewController: UIViewController {
     
     // helper function to return a value that is limited to a max and min
     private func getValueInRange(target: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
-        print("  target: \(target), min: \(min), max: \(max)")
         if (target > max) {
             return max
         } else if (target < min) {
@@ -345,33 +361,6 @@ class ViewController: UIViewController {
             return target
         }
     }
-    
-    // check if puzzlePiece is intersecting any other puzzle pieces or outside bounds
-    private func isValidMove(puzzlePiece: PuzzlePiece) -> Bool {
-        // loop through all the puzzle pieces
-        for otherPuzzlePiece in puzzlePieces {
-            // get the frame for this puzzle piece and that (other) puzzle piece
-            let thisRect = puzzlePiece.imageView.frame
-            let thatRect = otherPuzzlePiece.imageView.frame
-            
-            // set booleans to check if valid move
-            let isSamePuzzlePiece = (puzzlePiece === otherPuzzlePiece)
-            let isIntersection = (thisRect.intersects(thatRect) && !isSamePuzzlePiece)  // check if intersects the rect of other puzzle piece
-            let isOutsideBounds = isOutsideJumbleView(frame: thisRect)  // check if outside bounds
-            
-            // if outside bounds or intersectection then not valid move
-//            if (isOutsideBounds || isIntersection) {
-                if (isOutsideBounds) {
-
-                return false
-            }
-        }
-        
-        // not outside bounds or intersection found: valid move
-        return true
-    }
-    
-    
     
     // check if frame is outside of bounds
     private func isOutsideJumbleView(frame: CGRect) -> Bool {
@@ -443,7 +432,9 @@ class ViewController: UIViewController {
         
         let frame = CGRect(x: x, y: y, width: width, height: height)
         jumbleView = UIView(frame: frame)
-        jumbleView?.backgroundColor = UIColor.black
+        jumbleView?.layer.borderWidth = borderWidth // set border width for imageview
+        jumbleView?.layer.borderColor = borderColor  // set border color for imageview
+        jumbleView?.backgroundColor = UIColor.white
         self.view.addSubview(jumbleView!)
     }
     
@@ -453,19 +444,22 @@ class ViewController: UIViewController {
     //******************************************//
     
     // set the original image (i.e. image that is split into puzzle pieces)
-    private func setOriginalImage() {
-        originalImage = resizeToScreenSize(image: #imageLiteral(resourceName: "skyline"))  // resize to fit square screen size
+    func setPuzzleImage(image: UIImage) {
+        print("inside setPuzzleImage")
+        puzzleImage = resizeToScreenSize(image: image)
+        
     }
     
     // resize an image to the screen size
-    private func resizeToScreenSize(image: UIImage)->UIImage{
+    private func resizeToScreenSize(image: UIImage) -> UIImage{
+        print("inside resizeToScreenSize")
         return resizeImage(image: image, newWidth: screenWidth)
     }
     
     // resize an image
     // - Attribute: https://gist.github.com/cuxaro/20a5b9bbbccc46180861e01aa7f4a267
     private func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-        
+        print("inside resize Image")
         let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
         
@@ -522,14 +516,19 @@ class ViewController: UIViewController {
     
     // get the images for puzzle pieces: cropped from original image based on piece rectangles
     private func setImagePieces() {
-        // clear all existing images
-        imagePieces.removeAll()
-        
-        // loop through rectangles and create cropped image
-        for gameBoardPiece in gameBoard {
-            let square = gameBoardPiece.square  // set square that determines crop
-            let image = originalImage?.crop(rect: square)  // create image crop
-            imagePieces.append(image!)  // add image to array
+        if let image = puzzleImage {
+            // clear all existing images
+            imagePieces.removeAll()
+            
+            // loop through rectangles and create cropped image
+            for gameBoardPiece in gameBoard {
+                let square = gameBoardPiece.square  // set square that determines crop
+                print("square: \(square)")
+                print("image: \(image)")
+                print("imagecg: \(image.cgImage)")
+                let imagePiece = image.crop(rect: square)  // create image crop
+                imagePieces.append(imagePiece)  // add image to array
+            }
         }
     }
     
@@ -544,8 +543,8 @@ class ViewController: UIViewController {
             let frame = gameBoardSquare.square  // square from gameBoard piece
             let imageView = UIImageView(frame: frame)  // create imageview
             imageView.image = imagePieces[index]  // assign image to imageview
-            imageView.layer.borderWidth = border // set border width for imageview
-            imageView.layer.borderColor = UIColor.black.cgColor  // set border color for imageview
+            imageView.layer.borderWidth = borderWidth // set border width for imageview
+            imageView.layer.borderColor = borderColor  // set border color for imageview
             let puzzlePiece = PuzzlePiece(imageView: imageView, correctLocation: gameBoardSquare, currentLocation: gameBoardSquare)
             puzzlePieces.append(puzzlePiece)
         }
@@ -560,6 +559,8 @@ class ViewController: UIViewController {
         for index in 0...(puzzlePieces.count-1) {
             puzzlePieces[index].currentLocation = gameBoard[index]
         }
+        
+        updateOpenDirectionForPuzzlePieces()
     }
     
     // show the puzzle pieces
@@ -732,8 +733,8 @@ class ViewController: UIViewController {
         let missingImageView = UIImageView(frame: (openGameSquare?.square)!)
         missingImageView.image = missingImage
         missingImageView.alpha = 0.0
-        missingImageView.layer.borderWidth = border // set border width for imageview
-        missingImageView.layer.borderColor = UIColor.black.cgColor  // set border color for imageview
+        missingImageView.layer.borderWidth = borderWidth // set border width for imageview
+        missingImageView.layer.borderColor = borderColor  // set border color for imageview
         jumbleView?.addSubview(missingImageView)
         
         UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
@@ -741,7 +742,7 @@ class ViewController: UIViewController {
             missingImageView.alpha = 1.0
         }, completion: { finished in
             // show complete image
-            let finalImageView = UIImageView(image: self.originalImage)
+            let finalImageView = UIImageView(image: self.puzzleImage)
             finalImageView.alpha = 0.0
             self.jumbleView?.addSubview(finalImageView)
             UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
@@ -753,22 +754,153 @@ class ViewController: UIViewController {
         
     }
     
+    
+    // COLLECTION VIEW STUFF
+    
+    private func cropAllPictures() {
+        var croppedPictures = [UIImage]()
+        for picture in pictures {
+            let croppedPicture = cropToSquare(image: picture)
+            croppedPictures.append(croppedPicture)
+        }
+    
+        pictures.removeAll()
+        pictures = croppedPictures
+    }
+    
+    func cropToSquare(image: UIImage) -> UIImage {
+        let imageWidth = image.size.width
+        let imageHeight = image.size.height
+        let width =  min(imageWidth, imageHeight)
+        let height = width
+        
+        let origin = CGPoint(x: (imageWidth - width) / 2, y: (imageHeight - height) / 2)
+        let size = CGSize(width: width, height: height)
+        let frame = CGRect(origin: origin, size: size)
+        let squareImage = image.crop(rect: frame)
+        return squareImage
+    }
+    
+    private func showPictures() {
+        let frame = self.view.frame
+            // set size and location
+            picturesView.frame = frame
+            picturesView.layer.borderWidth = borderWidth // set border width
+            picturesView.layer.borderColor = borderColor // set border color
+            picturesView.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            // add to view
+            self.view.addSubview(picturesView)
+            picturesView.isHidden = false
+        
+        
+    }
+    
+    func hidePictures() {
+        picturesView.isHidden = true
+    }
+    
+    
 }
 
 //******************************************//
 //**************  Extensions ***************//
 //******************************************//
 
+
+extension ViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return pictures.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PictureCell
+        
+        // format cell
+        cell.backgroundColor = UIColor.white
+        cell.layer.borderWidth = borderWidth
+        cell.layer.borderColor = borderColor
+        
+        // assign image
+        let image = pictures[(indexPath as IndexPath).row]
+        cell.pictureImageView.image = image
+        cell.pictureImageView.contentMode = .scaleAspectFill
+
+        return cell
+    }
+
+}
+
+
+extension ViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = pictures[(indexPath as IndexPath).row]
+        clearPuzzle()
+        setPuzzle(picture: image)
+        hidePictures()
+        
+        // use this image
+        // clear old gameboard (save?)
+        // set background image
+        // hide this view
+        // show new image
+        // jumble
+    }
+    
+}
+
+// Layout for CollectionView
+// - Attribution: https://www.raywenderlich.com/136159/uicollectionview-tutorial-getting-started
+extension ViewController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = self.view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+}
+
+
+
+
+
 // crop image
 // - Attribution: http://stackoverflow.com/questions/39310729/problems-with-cropping-a-uiimage-in-swift
 extension UIImage {
     func crop(rect: CGRect) -> UIImage {
+        // set params
         var rect = rect
         rect.origin.x*=self.scale
         rect.origin.y*=self.scale
         rect.size.width*=self.scale
         rect.size.height*=self.scale
         
+        // crop & return the image
         let imageRef = self.cgImage!.cropping(to: rect)
         let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
         return image
@@ -802,4 +934,5 @@ extension Sequence {
         return result
     }
 }
+
 
