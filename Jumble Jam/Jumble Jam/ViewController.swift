@@ -13,38 +13,185 @@ class ViewController: UIViewController {
     
     // - don't use intersect: instead need to check against max/min x/y during move
     
+    
+    
     //******************************************//
     //***************  Properties **************//
     //******************************************//
     
     // - MARK: Properties
+    
+    // variables
+    var jumbleView: UIView?
+    var screenWidth: CGFloat = 375  // placeholder
     var originalImageView: UIImageView?
     var originalImage: UIImage?
-    var piecesPerRow: Int = 0
-    var pieceCount: Int = 0
     var gameBoard = [Square]()
     var imagePieces = [UIImage]()
     var puzzlePieces = [PuzzlePiece]()
-    
     let border: CGFloat = 2.0
-    var screenWidth: CGFloat = 375  // placeholder
+    var piecesPerRow: Int = 0 {
+        didSet {
+            pieceCount = piecesPerRow * piecesPerRow
+        }
+    }
     
-    var jumbleView: UIView?
+    // difficulty: # of pieces per row & col
+    let easy: Int = 3
+    let medium: Int = 4
+    let hard: Int = 5
+    let extreme: Int = 6
+    var pieceCount: Int = 0
+    var difficultyButtons = [UIButton]()
     
-    
+    // outlets
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var pointsLabel: UILabel!
+    @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var difficultyView: UIView!
+    @IBOutlet weak var easyButton: UIButton!
+    @IBOutlet weak var mediumButton: UIButton!
+    @IBOutlet weak var hardButton: UIButton!
+    @IBOutlet weak var extremeButton: UIButton!
+    @IBOutlet weak var jumbleButton: UIButton!
+    @IBOutlet weak var powerUpButton: UIButton!
+
+   
     
-    // jumble puzzle pieces
+    // buttons
+    @IBAction func pictureButton(_ sender: UIButton) {
+        // show collection view controller
+        // existing images: some disabled
+        // add photo from camera or photo roll
+    }
+    @IBAction func difficultyButton(_ sender: UIButton) {
+        // reveal difficulty view
+        toggleDifficultyView()
+    }
+    
+    @IBAction func infoButton(_ sender: UIButton) {
+        // show instructions view
+    }
+    
+    @IBAction func settingsButton(_ sender: UIButton) {
+        // show settings view
+    }
+    
+    @IBAction func easyButton(_ sender: UIButton) {
+        difficultySelected(sender: sender)
+        piecesPerRow = easy
+        clearPuzzle()
+        setPuzzle()
+        toggleDifficultyView()
+    }
+    
+    @IBAction func mediumButton(_ sender: UIButton) {
+        difficultySelected(sender: sender)
+        piecesPerRow = medium
+        clearPuzzle()
+        setPuzzle()
+        toggleDifficultyView()
+    }
+    
+    @IBAction func hardButton(_ sender: UIButton) {
+        difficultySelected(sender: sender)
+        piecesPerRow = hard
+        clearPuzzle()
+        setPuzzle()
+        toggleDifficultyView()
+    }
+    
+    @IBAction func extremeButton(_ sender: UIButton) {
+        difficultySelected(sender: sender)
+        piecesPerRow = extreme
+        clearPuzzle()
+        setPuzzle()
+        toggleDifficultyView()
+    }
+    
     @IBAction func jumbleButton(_ sender: UIButton) {
         jumblePuzzlePieces()
     }
     
-    // solve the puzzle
-    @IBAction func solveButton(_ sender: UIButton) {
-        solvePuzzle()
+    @IBAction func powerUpBUtton(_ sender: UIButton) {
+        // show powerUp available: default is highlight?
+        solvePuzzle()   // **** TEMP PLACE HOLDER ****
+    }
+    
+    //******************************************//
+    //************ Button Actions **************//
+    //******************************************//
+    
+    // show or hide difficulty view (difficulty buttons)
+    private func toggleDifficultyView() {
+        if (difficultyView.isHidden == true) {
+            difficultyView.isHidden = false
+            jumbleView?.frame.origin.y += difficultyView.frame.height
+        } else {
+            difficultyView.isHidden = true
+            jumbleView?.frame.origin.y -= difficultyView.frame.height
+        }
+    }
+    
+    // add difficulty buttons to array
+    func initializeDifficultyButtonArray() {
+        
+        difficultyButtons.append(easyButton)
+        difficultyButtons.append(mediumButton)
+        difficultyButtons.append(hardButton)
+        difficultyButtons.append(extremeButton)
+
+        // set based on user defaults
+        difficultySelected(sender: easyButton)
+    }
+    
+    func selectButton(button: UIButton) {
+        button.backgroundColor = #colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)
+        button.tintColor = #colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)
+        button.titleLabel?.textColor = UIColor.white
+        button.isSelected = true
+    }
+    
+    func unselectButton(button: UIButton) {
+        button.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        button.tintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        button.titleLabel?.textColor = UIColor.white
+        button.isSelected = false
     }
     
     
+    func difficultySelected(sender:UIButton) {
+        for button in difficultyButtons {
+            unselectButton(button: button)
+        }
+        selectButton(button: sender)
+    }
+    
+    private func clearPuzzle() {
+        gameBoard.removeAll()
+        imagePieces.removeAll()
+        puzzlePieces.removeAll()
+        if let subviews = jumbleView?.subviews {
+            for view in subviews {
+                view.removeFromSuperview()
+            }
+        }
+        
+    }
+    
+
+    private func setPuzzle() {
+        setGameBoard()
+        setImagePieces()
+        createPuzzlePieces()
+        jumblePuzzlePieces()
+        showPuzzlePieces()
+        updateOpenDirectionForPuzzlePieces()
+        addPlayerControl()
+        dumpPuzzlePieceInfo()
+    }
     
     //******************************************//
     //*************  View Did Load *************//
@@ -57,18 +204,13 @@ class ViewController: UIViewController {
         
         setScreenWidth()
         setJumbleView()
+        initializeDifficultyButtonArray()
         
         setOriginalImage()
-        piecesPerRow = 5
-        pieceCount = piecesPerRow * piecesPerRow
-        setGameBoard()
-        setImagePieces()
-        createPuzzlePieces()
-        jumblePuzzlePieces()
-        showPuzzlePieces()
-        updateOpenDirectionForPuzzlePieces()
-        addPlayerControl()
-        dumpPuzzlePieceInfo()
+        piecesPerRow = easy
+//        pieceCount = piecesPerRow * piecesPerRow
+        clearPuzzle()
+        setPuzzle()
     }
 
     //******************************************//
@@ -87,24 +229,18 @@ class ViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         targetView.addGestureRecognizer(panGesture)
         targetView.isUserInteractionEnabled = true
-        print("added user control")
     }
     
     // handle user touch
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        // var to hold the puzzlePiece being moved
-        var puzzlePiece: PuzzlePiece?
-        
         // get the translation
         let translation = recognizer.translation(in: self.view)
         
-        // get the view
-        if let view = recognizer.view {
-            //set the puzzlePiece
-            puzzlePiece = getCurrentPuzzlePiece(view: view)
-            
+        // get the view & puzzlePiece
+        if let view = recognizer.view, let puzzlePiece = getCurrentPuzzlePiece(view: view) {
+        
             // get open direction
-            let openDirection = puzzlePiece?.openDirection
+            let openDirection = puzzlePiece.openDirection
 
             // vars to identify type of movement: vertical or horizontal
             let isVerticalMove = (openDirection == PuzzlePiece.OpenDirection.up ||
@@ -112,23 +248,41 @@ class ViewController: UIViewController {
             let isHorizontalMove = (openDirection == PuzzlePiece.OpenDirection.right ||
                 openDirection == PuzzlePiece.OpenDirection.left)
             
+            
             // bring puzzlePiece to front
             view.superview?.bringSubview(toFront: view)
+            
+            print("trying pan")
 
-            // move (translate) puzzlePiece based on type of movement: vertical or horizontal
-            if isVerticalMove {
-                // check if valid move: not out of bounds or colliding with another puzzlePiece
-                if (isValidMove(puzzlePiece: puzzlePiece!)) {
-                    // vertical movement
-                    view.center = CGPoint(x:view.center.x, y:view.center.y + translation.y)
-                }
-            } else if isHorizontalMove {
-                // check if valid move: not out of bounds or colliding with another puzzlePiece
-                if (isValidMove(puzzlePiece: puzzlePiece!)) {
-                    // horizontal movement
-                    view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y)
-                }
-            }
+//            // move (translate) puzzlePiece based on type of movement: vertical or horizontal
+//            if isVerticalMove {
+            
+                let target = CGPoint(x:view.center.x + translation.x, y:view.center.y + translation.y)
+                let final = getFinalPoint(puzzlePiece: puzzlePiece, targetPoint: target)
+                print("have target and final")
+                view.center = final
+                print("view updated")
+                
+//                // check if valid move: not out of bounds or colliding with another puzzlePiece
+//                if (isValidMove(puzzlePiece: puzzlePiece!)) {
+//                    // vertical movement
+//                    view.center = CGPoint(x:view.center.x, y:view.center.y + translation.y)
+//                }
+//            } else if isHorizontalMove {
+//                
+//                let target = CGPoint(x:view.center.x + translation.x, y:view.center.y)
+//                let final = getFinalPoint(puzzlePiece: puzzlePiece, targetPoint: target)
+//                view.center = final
+//                
+//                
+////                // check if valid move: not out of bounds or colliding with another puzzlePiece
+////                if (isValidMove(puzzlePiece: puzzlePiece!)) {
+////                    // horizontal movement
+////                    view.center = CGPoint(x:view.center.x + translation.x, y:view.center.y)
+////                }
+//            }
+            
+            
         }
         
         // reset the translation
@@ -136,23 +290,59 @@ class ViewController: UIViewController {
         
         // end of pan gesture
         if (recognizer.state == UIGestureRecognizerState.ended) {
-            // set piece in final location -> ANIMATE???
-            puzzlePiece?.currentLocation = getClosestGameBoardSquare(puzzlePiece: puzzlePiece!)!
-            
-            // update open status
-            updateOpenDirectionForPuzzlePieces()
-            
-            print("x: \(recognizer.view?.frame.origin.x), y: \(recognizer.view?.frame.origin.y)")
-            // check if end of game
-            if (isGameOver()) {
-                print("game over: true")
-                addMissingPuzzlePiece()
-            } else {
-                print ("game over: false")
+            // set piece in final location
+            // get the view & puzzlePiece
+            if let view = recognizer.view,
+                let puzzlePiece = getCurrentPuzzlePiece(view: view),
+                let gameBoardSquare = getClosestGameBoardSquare(puzzlePiece: puzzlePiece) {
+                
+                puzzlePiece.currentLocation = gameBoardSquare
+                
+                // update open status
+                updateOpenDirectionForPuzzlePieces()
+                
+                // check if end of game
+                if (isGameOver()) {
+                    print("game over: true")
+                    addMissingPuzzlePiece()
+                } else {
+                    print ("game over: false")
+                }
+                
+                dumpPuzzlePieceInfo()
             }
-            
-            dumpPuzzlePieceInfo()
-            
+        }
+
+        
+        
+    }
+    
+    // place puzzle piece in gameBoardSquare
+    private func placePuzzlePiece(puzzlePiece: PuzzlePiece, gameBoardSquare: Square) {
+
+    }
+    
+    // get final point based on puzzlePiece movement limits
+    private func getFinalPoint(puzzlePiece: PuzzlePiece, targetPoint: CGPoint) -> CGPoint {
+        // get the x and y values based on available movement range
+        print("target x")
+        let x = getValueInRange(target: targetPoint.x,  min: puzzlePiece.minX, max: puzzlePiece.maxX)
+        print("target y")
+        let y = getValueInRange(target: targetPoint.y,  min: puzzlePiece.minY, max: puzzlePiece.maxY)
+        
+        // return final point
+        return CGPoint(x: x, y: y)
+    }
+    
+    // helper function to return a value that is limited to a max and min
+    private func getValueInRange(target: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
+        print("  target: \(target), min: \(min), max: \(max)")
+        if (target > max) {
+            return max
+        } else if (target < min) {
+            return min
+        } else {
+            return target
         }
     }
     
@@ -246,7 +436,8 @@ class ViewController: UIViewController {
     
     private func setJumbleView() {
         let x: CGFloat = 0
-        let y: CGFloat = infoView.frame.height
+        let yCushion: CGFloat = 5.0
+        let y: CGFloat = infoView.frame.height - difficultyView.frame.height + yCushion
         let width: CGFloat = screenWidth
         let height: CGFloat = width
         

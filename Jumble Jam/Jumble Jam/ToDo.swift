@@ -8,11 +8,6 @@
 
 import Foundation
 
-// - show/hide difficulty view based on if button pressed
-// - make difficulty radio button
-// - animation for placing piece - steal from tic-tac-toe
-
-// - update movement: use max/min x,y
 
 // - add collectionView to select image
     // - add more template pics -> decide how to select images, maybe based on level?
@@ -22,13 +17,8 @@ import Foundation
     // - win message screen: congrats, points, level, then ok
     // - start new level: choose new image screen
 
-// - complete design - PENDING
-    // - need logo
-    // - add instructions somewhere
-
 // - store user points and level in user defaults
 
-// - icons - base on logo - DONE
 // - splash screen - pieces randomly fly into place that shows logo
     // - straight into view with original image, message overlay with instructions & instructions
 // - alert - gameWin, power ups
@@ -70,4 +60,8 @@ import Foundation
     // - splash - logo
     // - clean - logo
 
+// update logos to use white on bottom and navy when selected difficulty
 // - consider moving gameboard logic to its own class
+
+// - make difficulty radio button - DONE
+// - show/hide difficulty view based on if button pressed - DONE
