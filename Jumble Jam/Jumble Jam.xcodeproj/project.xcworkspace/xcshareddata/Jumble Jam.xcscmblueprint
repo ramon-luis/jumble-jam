@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0C0C040BB89029AC6EE6714452BFF3951DA2AE4A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0C0C040BB89029AC6EE6714452BFF3951DA2AE4A" : 9223372036854775807,
+    "3B51E474058F916257BEB1B7DDF0589CEE781B48" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4ED1F696-09AD-4CA8-B9A0-CC7D992CFCA6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0C0C040BB89029AC6EE6714452BFF3951DA2AE4A" : "FinalProject\/",
+    "3B51E474058F916257BEB1B7DDF0589CEE781B48" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Jumble Jam",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Jumble Jam\/Jumble Jam.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uchicago-mobi\/mpcs51030-2017-winter-project-RAM0N-LUIS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C0C040BB89029AC6EE6714452BFF3951DA2AE4A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uchicago-mobi\/mpcs51030-2017-winter-assignment-3-RAM0N-LUIS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3B51E474058F916257BEB1B7DDF0589CEE781B48"
+    }
+  ]
+}

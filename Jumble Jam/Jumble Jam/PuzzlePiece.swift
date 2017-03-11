@@ -45,7 +45,7 @@ class PuzzlePiece {
     }
     
     func dumpInfo() {
-        print("row: \(currentLocation.row), col: \(currentLocation.col), open: \(openDirection), homeRow: \(correctLocation.row), homeCol: \(correctLocation.col)")
+        print("x: \(currentLocation.square.origin.x), y: \(currentLocation.square.origin.y) row: \(currentLocation.row), col: \(currentLocation.col), open: \(openDirection), homeRow: \(correctLocation.row), homeCol: \(correctLocation.col)")
     }
     
 }

@@ -15,6 +15,7 @@
 		FCB4BB501E6E469400150B8E /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB4F1E6E469400150B8E /* ToDo.swift */; };
 		FCB4BB521E6F73E100150B8E /* PuzzlePiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */; };
 		FCB4BB541E6F7A2900150B8E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB531E6F7A2900150B8E /* Square.swift */; };
+		FCB4BB561E7234A400150B8E /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB551E7234A400150B8E /* GameBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		FCB4BB4F1E6E469400150B8E /* ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzlePiece.swift; sourceTree = "<group>"; };
 		FCB4BB531E6F7A2900150B8E /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		FCB4BB551E7234A400150B8E /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				FCB4BB4F1E6E469400150B8E /* ToDo.swift */,
 				FCB4BB3D1E68FED100150B8E /* AppDelegate.swift */,
 				FCB4BB3F1E68FED100150B8E /* ViewController.swift */,
+				FCB4BB551E7234A400150B8E /* GameBoard.swift */,
 				FCB4BB531E6F7A2900150B8E /* Square.swift */,
 				FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */,
 				FCB4BB411E68FED100150B8E /* Main.storyboard */,
@@ -149,6 +152,7 @@
 				FCB4BB521E6F73E100150B8E /* PuzzlePiece.swift in Sources */,
 				FCB4BB501E6E469400150B8E /* ToDo.swift in Sources */,
 				FCB4BB401E68FED100150B8E /* ViewController.swift in Sources */,
+				FCB4BB561E7234A400150B8E /* GameBoard.swift in Sources */,
 				FCB4BB3E1E68FED100150B8E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +281,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.uchicago.ramonlrodriguez.Jumble-Jam";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -289,6 +294,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.uchicago.ramonlrodriguez.Jumble-Jam";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -311,6 +317,7 @@
 				FCB4BB4E1E68FED100150B8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

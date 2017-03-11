@@ -10,7 +10,9 @@ import UIKit
 import GameKit
 
 class ViewController: UIViewController {
-
+    
+    // - don't use intersect: instead need to check against max/min x/y during move
+    
     //******************************************//
     //***************  Properties **************//
     //******************************************//
@@ -18,13 +20,31 @@ class ViewController: UIViewController {
     // - MARK: Properties
     var originalImageView: UIImageView?
     var originalImage: UIImage?
+    var piecesPerRow: Int = 0
     var pieceCount: Int = 0
     var gameBoard = [Square]()
     var imagePieces = [UIImage]()
     var puzzlePieces = [PuzzlePiece]()
-    let border: CGFloat = 2.0
     
-    @IBOutlet weak var jumbleView: UIView!
+    let border: CGFloat = 2.0
+    var screenWidth: CGFloat = 375  // placeholder
+    
+    var jumbleView: UIView?
+    
+    
+    @IBOutlet weak var infoView: UIView!
+    
+    // jumble puzzle pieces
+    @IBAction func jumbleButton(_ sender: UIButton) {
+        jumblePuzzlePieces()
+    }
+    
+    // solve the puzzle
+    @IBAction func solveButton(_ sender: UIButton) {
+        solvePuzzle()
+    }
+    
+    
     
     //******************************************//
     //*************  View Did Load *************//
@@ -35,8 +55,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 //        loadInitialImage()
         
+        setScreenWidth()
+        setJumbleView()
+        
         setOriginalImage()
-        pieceCount = 9
+        piecesPerRow = 5
+        pieceCount = piecesPerRow * piecesPerRow
         setGameBoard()
         setImagePieces()
         createPuzzlePieces()
@@ -51,11 +75,19 @@ class ViewController: UIViewController {
     //************  Gesture Control ************//
     //******************************************//
     
+    // shake to jumble puzzle
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if (motion == UIEventSubtype.motionShake) {
+            jumblePuzzlePieces()
+        }
+    }
+    
     // create gesture control
     private func createGresture(targetView: UIImageView) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         targetView.addGestureRecognizer(panGesture)
         targetView.isUserInteractionEnabled = true
+        print("added user control")
     }
     
     // handle user touch
@@ -110,12 +142,16 @@ class ViewController: UIViewController {
             // update open status
             updateOpenDirectionForPuzzlePieces()
             
-            // highlight that is in correct position
-            if (puzzlePiece?.isCorrectLocation())! {
-                puzzlePiece?.imageView.alpha = 0.5
+            print("x: \(recognizer.view?.frame.origin.x), y: \(recognizer.view?.frame.origin.y)")
+            // check if end of game
+            if (isGameOver()) {
+                print("game over: true")
+                addMissingPuzzlePiece()
             } else {
-                puzzlePiece?.imageView.alpha = 1.0
+                print ("game over: false")
             }
+            
+            dumpPuzzlePieceInfo()
             
         }
     }
@@ -129,12 +165,14 @@ class ViewController: UIViewController {
             let thatRect = otherPuzzlePiece.imageView.frame
             
             // set booleans to check if valid move
-            let isSamePuzzlePiece = (thisRect == thatRect) // if the rects are identical, then same puzzle piece
+            let isSamePuzzlePiece = (puzzlePiece === otherPuzzlePiece)
             let isIntersection = (thisRect.intersects(thatRect) && !isSamePuzzlePiece)  // check if intersects the rect of other puzzle piece
             let isOutsideBounds = isOutsideJumbleView(frame: thisRect)  // check if outside bounds
             
             // if outside bounds or intersectection then not valid move
-            if (isOutsideBounds || isIntersection) {
+//            if (isOutsideBounds || isIntersection) {
+                if (isOutsideBounds) {
+
                 return false
             }
         }
@@ -143,13 +181,15 @@ class ViewController: UIViewController {
         return true
     }
     
+    
+    
     // check if frame is outside of bounds
     private func isOutsideJumbleView(frame: CGRect) -> Bool {
-        // set values of x and y boundaries based on view that holds gameBoard
-        let minX = jumbleView.frame.origin.x
-        let minY = jumbleView.frame.origin.y
-        let maxX = minX + jumbleView.frame.width
-        let maxY = minY + jumbleView.frame.height
+        // set values of x and y boundaries
+        let minX: CGFloat = 0
+        let minY: CGFloat = 0
+        let maxX = minX + (jumbleView?.frame.width)!
+        let maxY = minY + (jumbleView?.frame.height)!
         
         // set booleans to check if frame is inside max bounds
         let isOutsideLeftBounds = (frame.origin.x < minX)
@@ -197,6 +237,27 @@ class ViewController: UIViewController {
     }
     
     //******************************************//
+    //**************  Initialize ***************//
+    //******************************************//
+    
+    private func setScreenWidth() {
+        screenWidth = self.view.bounds.size.width
+    }
+    
+    private func setJumbleView() {
+        let x: CGFloat = 0
+        let y: CGFloat = infoView.frame.height
+        let width: CGFloat = screenWidth
+        let height: CGFloat = width
+        
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        jumbleView = UIView(frame: frame)
+        jumbleView?.backgroundColor = UIColor.black
+        self.view.addSubview(jumbleView!)
+    }
+    
+    
+    //******************************************//
     //************  Original Image *************//
     //******************************************//
     
@@ -207,8 +268,7 @@ class ViewController: UIViewController {
     
     // resize an image to the screen size
     private func resizeToScreenSize(image: UIImage)->UIImage{
-        let screenSize = self.view.bounds.size
-        return resizeImage(image: image, newWidth: screenSize.width)
+        return resizeImage(image: image, newWidth: screenWidth)
     }
     
     // resize an image
@@ -219,8 +279,7 @@ class ViewController: UIViewController {
         let newHeight = image.size.height * scale
         
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        
-        image.draw(in: CGRect(x: 0, y: 0,width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -237,7 +296,6 @@ class ViewController: UIViewController {
         gameBoard.removeAll()
         
         // set vars to track rectangle (piece) location
-        let piecesPerRow = Int(sqrt(Double(pieceCount)))
         let piecesPerCol = piecesPerRow
         var pieceIndex = 0
         var rowIndex = 0
@@ -256,7 +314,7 @@ class ViewController: UIViewController {
                 rowIndex += 1  // move one row down
             }
             
-            // set the x and y of the the rect
+            // set the x and y of the the rect: start at origin of jumbleView and adjust based on col/row
             let x = 0 + CGFloat(colIndex) * width
             let y = 0 + CGFloat(rowIndex) * width
             
@@ -316,7 +374,7 @@ class ViewController: UIViewController {
     // show the puzzle pieces
     private func showPuzzlePieces() {
         for puzzlePiece in puzzlePieces {
-            jumbleView.addSubview(puzzlePiece.imageView)
+            jumbleView?.addSubview(puzzlePiece.imageView)
         }
     }
     
@@ -399,7 +457,6 @@ class ViewController: UIViewController {
         return nil
     }
     
-    
     // get a gameBoard Square based on a row and col
     private func getGameBoardSquare(row: Int, col: Int) -> Square? {
         // loop through all gameBoard squares
@@ -418,8 +475,8 @@ class ViewController: UIViewController {
     private func getCurrentPuzzlePiece(gameBoardSquare: Square) -> PuzzlePiece? {
         // loop through all puzzlePieces
         for puzzlePiece in puzzlePieces {
-            // check if imageview origin on puzzlePiece matches gameBoardSquare origin
-            if (puzzlePiece.imageView.frame.origin == gameBoardSquare.square.origin) {
+            // check if puzzlePiece location matches gameBoardSquare
+            if (puzzlePiece.currentLocation === gameBoardSquare) {
                 return puzzlePiece
             }
         }
@@ -449,13 +506,72 @@ class ViewController: UIViewController {
         return nil
     }
     
-
+    
+    //******************************************//
+    //************* Handle GamePlay ************//
+    //******************************************//
+    
+    // solve the puzzle
+    private func solvePuzzle() {
+        // loop through all puzzlePieces
+        for puzzlePiece in puzzlePieces {
+            // set the current location to be the correct location
+            puzzlePiece.currentLocation = puzzlePiece.correctLocation
+        }
+        addMissingPuzzlePiece()
+    }
+    
+    // check if game is over
+    private func isGameOver() -> Bool {
+        // loop through all puzzlePieces
+        for puzzlePiece in puzzlePieces {
+            // if piece is not in correct location, then game not over
+            if !puzzlePiece.isCorrectLocation() {
+                return false
+            }
+        }
+        // all pieces in correct location: game over
+        return true
+    }
+    
+    // add the missing puzzlePiece  *** REMEMBER TO REMOVE LATER ****
+    private func addMissingPuzzlePiece() {
+        let openGameSquare = gameBoard.last
+        let missingImage = imagePieces.last
+        let missingImageView = UIImageView(frame: (openGameSquare?.square)!)
+        missingImageView.image = missingImage
+        missingImageView.alpha = 0.0
+        missingImageView.layer.borderWidth = border // set border width for imageview
+        missingImageView.layer.borderColor = UIColor.black.cgColor  // set border color for imageview
+        jumbleView?.addSubview(missingImageView)
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
+            // bring the missing image into view
+            missingImageView.alpha = 1.0
+        }, completion: { finished in
+            // show complete image
+            let finalImageView = UIImageView(image: self.originalImage)
+            finalImageView.alpha = 0.0
+            self.jumbleView?.addSubview(finalImageView)
+            UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
+                finalImageView.alpha = 1.0
+            }, completion: nil)
+            
+            
+        })
+        
+    }
     
 }
 
+//******************************************//
+//**************  Extensions ***************//
+//******************************************//
+
+// crop image
 // - Attribution: http://stackoverflow.com/questions/39310729/problems-with-cropping-a-uiimage-in-swift
 extension UIImage {
-    func crop( rect: CGRect) -> UIImage {
+    func crop(rect: CGRect) -> UIImage {
         var rect = rect
         rect.origin.x*=self.scale
         rect.origin.y*=self.scale
@@ -466,16 +582,9 @@ extension UIImage {
         let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
         return image
     }
-    
-    
-    
-    
-    
 }
 
-//******************************************//
-//**************  Extensions ***************//
-//******************************************//
+
 
 // shuffle a collection
 // - Attribution: http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift/24029847#24029847
