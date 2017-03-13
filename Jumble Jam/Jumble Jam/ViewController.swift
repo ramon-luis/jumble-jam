@@ -490,14 +490,12 @@ class ViewController: UIViewController {
         // add to view
         self.view.addSubview(picturesView)
         picturesView.isHidden = false
-        powerUpView.isHidden = true
     }
     
     // hide pictures collectionView
     func hidePictures() {
         pictureButton.isHighlighted = false
         picturesView.isHidden = true
-        powerUpView.isHidden = false
     }
     
     //******************************************//

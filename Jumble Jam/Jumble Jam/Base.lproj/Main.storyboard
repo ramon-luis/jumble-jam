@@ -63,28 +63,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0h-PP-kZg" userLabel="Info View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z0h-PP-kZg" userLabel="Info View">
                                 <rect key="frame" x="0.0" y="0.0" width="319" height="145"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCA-o9-MCE" userLabel="PictureButton">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCA-o9-MCE" userLabel="PictureButton">
                                         <rect key="frame" x="8" y="70" width="75" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="fuP-tV-mon"/>
+                                            <constraint firstAttribute="width" constant="75" id="rBc-zd-uOq"/>
+                                        </constraints>
                                         <state key="normal" image="PictureIcon"/>
                                         <connections>
                                             <action selector="pictureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KVX-Vx-5eh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flavor Points: 13,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccj-uM-Ioj" userLabel="PointsLabel">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="JumbleJamLogoW" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-uE-38m" userLabel="LogoImageView">
+                                        <rect key="frame" x="0.0" y="17" width="319" height="109"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="109" id="XYr-ST-meL"/>
+                                            <constraint firstAttribute="width" constant="319" id="ZzL-nE-DjU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Flavor Points: 13,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccj-uM-Ioj" userLabel="PointsLabel">
                                         <rect key="frame" x="81" y="126" width="156" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="JumbleJamLogoW" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-uE-38m" userLabel="LogoImageView">
-                                        <rect key="frame" x="0.0" y="17" width="319" height="109"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wJ-wP-saD" userLabel="DifficultyButton">
+                                        <rect key="frame" x="236" y="70" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="CjY-JJ-L8r"/>
+                                            <constraint firstAttribute="height" constant="75" id="UeV-3W-20y"/>
+                                        </constraints>
+                                        <state key="normal" image="DifficultyIcon"/>
+                                        <connections>
+                                            <action selector="difficultyButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FkZ-7V-Ide"/>
+                                        </connections>
+                                    </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZI-Sr-61x" userLabel="InfoButton">
                                         <rect key="frame" x="8" y="17" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -101,109 +117,25 @@
                                             <action selector="settingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2KO-Qv-Xce"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wJ-wP-saD" userLabel="DifficultyButton">
-                                        <rect key="frame" x="236" y="70" width="75" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="DifficultyIcon"/>
-                                        <connections>
-                                            <action selector="difficultyButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FkZ-7V-Ide"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="145" id="3Ds-UP-9uO"/>
+                                    <constraint firstItem="hYH-uE-38m" firstAttribute="centerX" secondItem="Z0h-PP-kZg" secondAttribute="centerX" id="5Q0-zg-eqC"/>
+                                    <constraint firstItem="8wJ-wP-saD" firstAttribute="trailing" secondItem="Z0h-PP-kZg" secondAttribute="trailing" constant="-8" id="IUF-yK-QzA"/>
+                                    <constraint firstItem="LCA-o9-MCE" firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="c9V-ya-tmS"/>
+                                    <constraint firstItem="8wJ-wP-saD" firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="eEU-oV-hCT"/>
+                                    <constraint firstItem="LCA-o9-MCE" firstAttribute="leading" secondItem="Z0h-PP-kZg" secondAttribute="leading" constant="8" id="hZH-Uz-En9"/>
+                                    <constraint firstItem="ccj-uM-Ioj" firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="hdE-Dx-7dW"/>
+                                    <constraint firstItem="hYH-uE-38m" firstAttribute="bottom" secondItem="ccj-uM-Ioj" secondAttribute="top" id="ngY-pO-UYK"/>
+                                    <constraint firstItem="ccj-uM-Ioj" firstAttribute="centerX" secondItem="Z0h-PP-kZg" secondAttribute="centerX" id="oxA-Tp-6sA"/>
+                                </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9o-gZ-ANq" userLabel="Difficulty View">
-                                <rect key="frame" x="0.0" y="145" width="320" height="35"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELv-7C-dD6" userLabel="Pictures View">
+                                <rect key="frame" x="0.0" y="145" width="320" height="348"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lh5-D7-pj9">
-                                        <rect key="frame" x="8" y="4" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
-                                        <state key="normal" title="Easy">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="easyButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hnT-GP-rjk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llZ-KI-BuN">
-                                        <rect key="frame" x="90" y="4" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
-                                        <state key="normal" title="Medium">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="mediumButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zh8-Yu-J4p"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHo-Yb-5st">
-                                        <rect key="frame" x="250" y="4" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
-                                        <state key="normal" title="Extreme">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="extremeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KHG-Hh-hvn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1an-MW-L2A">
-                                        <rect key="frame" x="170" y="4" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
-                                        <state key="normal" title="Hard">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="hardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m7j-zh-SzT"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELv-7C-dD6" userLabel="Pictures View">
-                                <rect key="frame" x="0.0" y="145" width="320" height="415"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBh-gp-dFQ" userLabel="Pictures Header View">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a Picture to Jumble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHx-uh-oTu" userLabel="Choose a Picture">
-                                                <rect key="frame" x="66" y="6" width="196" height="20"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8T-nb-gWE" userLabel="Picture Button">
-                                                <rect key="frame" x="8" y="2" width="40" height="28"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="CameraIcon">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="cameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITm-gH-ef9"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phL-JJ-SwT" userLabel="Cancel Button">
-                                                <rect key="frame" x="277" y="2" width="35" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="CancelIcon"/>
-                                                <connections>
-                                                    <action selector="cancelPicturesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y0d-Qd-RlV"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </view>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Bx-fd-gvH">
-                                        <rect key="frame" x="0.0" y="37" width="320" height="378"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Bx-fd-gvH">
+                                        <rect key="frame" x="0.0" y="37" width="320" height="303"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C9g-VR-o9i">
                                             <size key="itemSize" width="178" height="154"/>
@@ -237,64 +169,208 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBh-gp-dFQ" userLabel="Pictures Header View">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a Picture to Jumble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHx-uh-oTu" userLabel="Choose a Picture">
+                                                <rect key="frame" x="66" y="6" width="196" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8T-nb-gWE" userLabel="Picture Button">
+                                                <rect key="frame" x="8" y="2" width="40" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="CameraIcon">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITm-gH-ef9"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phL-JJ-SwT" userLabel="Cancel Button">
+                                                <rect key="frame" x="277" y="2" width="35" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="CancelIcon"/>
+                                                <connections>
+                                                    <action selector="cancelPicturesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y0d-Qd-RlV"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="38" id="tcS-h0-TZ4"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5Bx-fd-gvH" firstAttribute="leading" secondItem="ELv-7C-dD6" secondAttribute="leading" id="1En-VN-t3a"/>
+                                    <constraint firstItem="5Bx-fd-gvH" firstAttribute="trailing" secondItem="ELv-7C-dD6" secondAttribute="trailing" id="6lW-nw-PTD"/>
+                                    <constraint firstItem="gBh-gp-dFQ" firstAttribute="top" secondItem="ELv-7C-dD6" secondAttribute="top" id="Aep-pm-bDk"/>
+                                    <constraint firstItem="5Bx-fd-gvH" firstAttribute="bottom" secondItem="ELv-7C-dD6" secondAttribute="bottom" id="ikj-W7-8DT"/>
+                                    <constraint firstItem="5Bx-fd-gvH" firstAttribute="top" secondItem="ELv-7C-dD6" secondAttribute="top" constant="38" id="mqX-MK-crY"/>
+                                    <constraint firstItem="gBh-gp-dFQ" firstAttribute="leading" secondItem="ELv-7C-dD6" secondAttribute="leading" id="rAR-cd-eTu"/>
+                                    <constraint firstItem="gBh-gp-dFQ" firstAttribute="trailing" secondItem="ELv-7C-dD6" secondAttribute="trailing" id="t6u-y2-E4f"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-q7-Ahe" userLabel="PowerUp View">
                                 <rect key="frame" x="0.0" y="493" width="320" height="75"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-Kq-I8w" userLabel="JumbleButton">
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-Kq-I8w" userLabel="JumbleButton">
                                         <rect key="frame" x="1" y="0.0" width="75" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="Tm3-8L-Dgq"/>
+                                            <constraint firstAttribute="width" constant="75" id="v1b-pi-WM7"/>
+                                        </constraints>
                                         <state key="normal" image="JumblePowerUp"/>
                                         <connections>
                                             <action selector="jumbleButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N6n-ZK-Opq"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1. Choose picture 2. Jumble as desired 3. Solve for best flavor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L1-79-YhE">
-                                        <rect key="frame" x="84" y="20" width="152" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="14"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzm-LK-pE4" userLabel="PowerUpButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzm-LK-pE4" userLabel="PowerUpButton">
                                         <rect key="frame" x="245" y="0.0" width="75" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="DNb-m8-1wI"/>
+                                            <constraint firstAttribute="height" constant="75" id="nFT-Xs-5gg"/>
+                                        </constraints>
                                         <state key="normal" image="SolvePuzzlePowerUp"/>
                                         <connections>
                                             <action selector="powerUpBUtton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SOF-UV-ezA"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recipe Instructions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDz-qE-Nuh">
-                                        <rect key="frame" x="76" y="0.0" width="169" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NU2-pM-jUR" userLabel="Instructions View">
+                                        <rect key="frame" x="73" y="0.0" width="172" height="72"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Recipe Instructions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDz-qE-Nuh">
+                                                <rect key="frame" x="0.0" y="4" width="172" height="21"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1. Choose picture 2. Jumble as desired 3. Solve for best flavor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L1-79-YhE">
+                                                <rect key="frame" x="5" y="20" width="152" height="55"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="1ZD-o2-AQK"/>
+                                            <constraint firstItem="BDz-qE-Nuh" firstAttribute="top" secondItem="NU2-pM-jUR" secondAttribute="top" constant="20" id="DQE-lM-hYm"/>
+                                            <constraint firstItem="BDz-qE-Nuh" firstAttribute="centerX" secondItem="NU2-pM-jUR" secondAttribute="centerX" id="Mlc-xh-QU6"/>
+                                            <constraint firstAttribute="bottom" secondItem="6L1-79-YhE" secondAttribute="bottom" id="TnT-HT-bdd"/>
+                                            <constraint firstItem="BDz-qE-Nuh" firstAttribute="top" secondItem="NU2-pM-jUR" secondAttribute="top" id="akb-pP-1MP"/>
+                                            <constraint firstAttribute="bottom" secondItem="6L1-79-YhE" secondAttribute="bottom" constant="20" id="dfc-wq-pTf"/>
+                                            <constraint firstItem="6L1-79-YhE" firstAttribute="centerX" secondItem="NU2-pM-jUR" secondAttribute="centerX" id="h9y-rY-98t"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="NU2-pM-jUR" firstAttribute="centerX" secondItem="8Em-q7-Ahe" secondAttribute="centerX" id="2JO-aR-V8v"/>
+                                    <constraint firstItem="Uzm-LK-pE4" firstAttribute="centerY" secondItem="8Em-q7-Ahe" secondAttribute="centerY" id="5YM-rl-If2"/>
+                                    <constraint firstItem="5e7-Kq-I8w" firstAttribute="leading" secondItem="8Em-q7-Ahe" secondAttribute="leading" id="D20-BT-27Y"/>
+                                    <constraint firstItem="5e7-Kq-I8w" firstAttribute="centerY" secondItem="8Em-q7-Ahe" secondAttribute="centerY" id="bbM-O8-UH4"/>
+                                    <constraint firstItem="NU2-pM-jUR" firstAttribute="centerY" secondItem="8Em-q7-Ahe" secondAttribute="centerY" id="clr-ff-eaq"/>
+                                    <constraint firstAttribute="height" constant="75" id="doV-YH-keu"/>
+                                    <constraint firstItem="Uzm-LK-pE4" firstAttribute="trailing" secondItem="8Em-q7-Ahe" secondAttribute="trailing" id="sol-Xv-wQg"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9o-gZ-ANq" userLabel="Difficulty View">
+                                <rect key="frame" x="0.0" y="145" width="320" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lh5-D7-pj9">
+                                        <rect key="frame" x="8" y="4" width="60" height="25"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="EBa-hZ-qwF"/>
+                                            <constraint firstAttribute="width" constant="60" id="pH8-15-6ZH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                        <state key="normal" title="Easy">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="easyButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hnT-GP-rjk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llZ-KI-BuN">
+                                        <rect key="frame" x="90" y="4" width="60" height="25"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Dx7-EZ-Y4o"/>
+                                            <constraint firstAttribute="width" constant="60" id="JRf-7R-fD8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                        <state key="normal" title="Medium">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mediumButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zh8-Yu-J4p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHo-Yb-5st">
+                                        <rect key="frame" x="250" y="4" width="60" height="25"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Djx-FR-yz4"/>
+                                            <constraint firstAttribute="height" constant="25" id="dwZ-2R-xEj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                        <state key="normal" title="Extreme">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="extremeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KHG-Hh-hvn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1an-MW-L2A">
+                                        <rect key="frame" x="170" y="4" width="60" height="25"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Ddb-7P-Wbc"/>
+                                            <constraint firstAttribute="width" constant="60" id="gOR-Om-WpK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                        <state key="normal" title="Hard">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="hardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m7j-zh-SzT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Lh5-D7-pj9" firstAttribute="leading" secondItem="u9o-gZ-ANq" secondAttribute="leading" constant="8" id="51b-rf-RFp"/>
+                                    <constraint firstItem="llZ-KI-BuN" firstAttribute="leading" secondItem="Lh5-D7-pj9" secondAttribute="trailing" constant="20" id="Anq-1i-Wox"/>
+                                    <constraint firstItem="Lh5-D7-pj9" firstAttribute="centerY" secondItem="u9o-gZ-ANq" secondAttribute="centerY" id="BFT-aP-wbF"/>
+                                    <constraint firstAttribute="trailing" secondItem="WHo-Yb-5st" secondAttribute="trailing" constant="8" id="IAe-Wn-dRQ"/>
+                                    <constraint firstItem="WHo-Yb-5st" firstAttribute="leading" secondItem="1an-MW-L2A" secondAttribute="trailing" constant="20" id="KkV-Vv-6sC"/>
+                                    <constraint firstItem="WHo-Yb-5st" firstAttribute="centerY" secondItem="u9o-gZ-ANq" secondAttribute="centerY" id="SlG-uM-Guh"/>
+                                    <constraint firstItem="1an-MW-L2A" firstAttribute="centerY" secondItem="u9o-gZ-ANq" secondAttribute="centerY" id="TWi-Lh-x0Z"/>
+                                    <constraint firstAttribute="height" constant="35" id="bQ0-o1-nLc"/>
+                                    <constraint firstItem="llZ-KI-BuN" firstAttribute="centerY" secondItem="u9o-gZ-ANq" secondAttribute="centerY" id="mp8-nw-YaE"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ELv-7C-dD6" firstAttribute="top" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="02K-nk-0aa"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="centerX" secondItem="Z0h-PP-kZg" secondAttribute="centerX" id="1pE-VB-n0b"/>
-                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="493" id="8e7-wN-GZ7"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="top" secondItem="ELv-7C-dD6" secondAttribute="top" id="9gF-aB-G1v"/>
-                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="9uX-lY-Lhb"/>
-                            <constraint firstItem="Z0h-PP-kZg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="EXi-aM-4jr"/>
-                            <constraint firstItem="ELv-7C-dD6" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Hqe-Fo-QkL"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="leading" secondItem="8Em-q7-Ahe" secondAttribute="leading" id="JxM-Ij-Dm3"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="leading" secondItem="ELv-7C-dD6" secondAttribute="leading" id="MVL-ww-UMM"/>
-                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NhE-AX-FyA"/>
-                            <constraint firstAttribute="bottom" secondItem="u9o-gZ-ANq" secondAttribute="bottom" constant="388" id="Ong-cy-tT5"/>
-                            <constraint firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" constant="423" id="SKn-EF-1fs"/>
-                            <constraint firstItem="ELv-7C-dD6" firstAttribute="trailing" secondItem="8Em-q7-Ahe" secondAttribute="trailing" id="eef-EW-dl4"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="trailing" secondItem="ELv-7C-dD6" secondAttribute="trailing" id="ina-lh-5ar"/>
-                            <constraint firstAttribute="trailing" secondItem="8Em-q7-Ahe" secondAttribute="trailing" id="msP-Uj-chN"/>
-                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="leading" secondItem="Z0h-PP-kZg" secondAttribute="leading" id="mya-iz-OIk"/>
+                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0wQ-tu-wG9"/>
+                            <constraint firstItem="Z0h-PP-kZg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1sE-Vm-UVT"/>
+                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="8r9-PJ-520"/>
+                            <constraint firstItem="ELv-7C-dD6" firstAttribute="top" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="Gbt-dD-AAK"/>
+                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IU4-k0-abz"/>
+                            <constraint firstItem="Z0h-PP-kZg" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Ptg-pK-rRJ"/>
+                            <constraint firstItem="ELv-7C-dD6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RRj-up-Bml"/>
+                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="top" secondItem="ELv-7C-dD6" secondAttribute="bottom" id="TqX-7d-KWh"/>
+                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="USb-8K-OIj"/>
+                            <constraint firstItem="u9o-gZ-ANq" firstAttribute="top" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="Vjh-8r-5SU"/>
+                            <constraint firstItem="8Em-q7-Ahe" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="bV3-Aj-9QS"/>
+                            <constraint firstItem="Z0h-PP-kZg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cAP-YO-7G9"/>
+                            <constraint firstItem="ELv-7C-dD6" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="fHa-n0-WZN"/>
                         </constraints>
                     </view>
                     <connections>
