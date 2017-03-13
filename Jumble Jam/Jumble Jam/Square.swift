@@ -27,5 +27,9 @@ class Square {
         status = Status.closed
     }
     
+    func toString() -> String{
+        return "Square | row: \(row), col: \(col), origin: \(square.origin), xOrigin: \(CGPoint(x: (square.origin.x + square.width), y: (square.origin.y + square.height))), width: \(square.width)"
+    }
+    
     
 }

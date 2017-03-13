@@ -9,19 +9,9 @@
 import Foundation
 
 
-// - ISSUE: jumble button?
+// - REFACTOR
+// - store user points in user defaults
 
-// - game over:
-    // - win message screen: congrats, points, level, then ok
-    // - start new level: choose new image screen
-
-// - improve starting game: show initial image, then jumble
-
-// - store user points and level in user defaults
-
-// - splash screen - pieces randomly fly into place that shows logo
-    // - straight into view with original image, message overlay with instructions & instructions
-// - alert - gameWin, power ups
 // - settings
 
 // - marketing write up
@@ -46,8 +36,6 @@ import Foundation
         // - don't see original image preview
         // - color effects / image filters for bonus rounds
     // - add own images
-        // - icon to choose own image and save to available images - LATER
-        // - crop & resize user selected photos to use
 // - special powers
     // - highlight correct pieces - logo
     // - remove puzzle piece - logo
@@ -64,5 +52,8 @@ import Foundation
 // update logos to use white on bottom and navy when selected difficulty
 // - consider moving gameboard logic to its own class
 
+// - icon to choose own image - DONE
+// - crop & resize user selected photos to use - DONE
+// - alert - difficulty change - DONE
 // - make difficulty radio button - DONE
 // - show/hide difficulty view based on if button pressed - DONE

@@ -17,6 +17,9 @@
 		FCB4BB541E6F7A2900150B8E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB531E6F7A2900150B8E /* Square.swift */; };
 		FCB4BB561E7234A400150B8E /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB551E7234A400150B8E /* GameBoard.swift */; };
 		FCB4BB5C1E74714700150B8E /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB5B1E74714700150B8E /* PictureCell.swift */; };
+		FCB4BB601E74E53600150B8E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB5F1E74E53600150B8E /* SplashViewController.swift */; };
+		FCB4BB621E74E5C000150B8E /* Image+Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB611E74E5C000150B8E /* Image+Effects.swift */; };
+		FCB4BB641E74E61300150B8E /* Collection+Shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB4BB631E74E61300150B8E /* Collection+Shuffle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		FCB4BB531E6F7A2900150B8E /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		FCB4BB551E7234A400150B8E /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		FCB4BB5B1E74714700150B8E /* PictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		FCB4BB5F1E74E53600150B8E /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		FCB4BB611E74E5C000150B8E /* Image+Effects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Effects.swift"; sourceTree = "<group>"; };
+		FCB4BB631E74E61300150B8E /* Collection+Shuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Shuffle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,11 +72,14 @@
 			children = (
 				FCB4BB4F1E6E469400150B8E /* ToDo.swift */,
 				FCB4BB3D1E68FED100150B8E /* AppDelegate.swift */,
+				FCB4BB5F1E74E53600150B8E /* SplashViewController.swift */,
 				FCB4BB3F1E68FED100150B8E /* ViewController.swift */,
 				FCB4BB551E7234A400150B8E /* GameBoard.swift */,
 				FCB4BB531E6F7A2900150B8E /* Square.swift */,
 				FCB4BB511E6F73E100150B8E /* PuzzlePiece.swift */,
 				FCB4BB5B1E74714700150B8E /* PictureCell.swift */,
+				FCB4BB631E74E61300150B8E /* Collection+Shuffle.swift */,
+				FCB4BB611E74E5C000150B8E /* Image+Effects.swift */,
 				FCB4BB411E68FED100150B8E /* Main.storyboard */,
 				FCB4BB441E68FED100150B8E /* Assets.xcassets */,
 				FCB4BB461E68FED100150B8E /* LaunchScreen.storyboard */,
@@ -158,6 +167,9 @@
 				FCB4BB401E68FED100150B8E /* ViewController.swift in Sources */,
 				FCB4BB561E7234A400150B8E /* GameBoard.swift in Sources */,
 				FCB4BB3E1E68FED100150B8E /* AppDelegate.swift in Sources */,
+				FCB4BB641E74E61300150B8E /* Collection+Shuffle.swift in Sources */,
+				FCB4BB601E74E53600150B8E /* SplashViewController.swift in Sources */,
+				FCB4BB621E74E5C000150B8E /* Image+Effects.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

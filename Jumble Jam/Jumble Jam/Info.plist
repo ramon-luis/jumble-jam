@@ -43,5 +43,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Jumble Jam your own Pics!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Jumble Jam your own Pics!</string>
 </dict>
 </plist>
