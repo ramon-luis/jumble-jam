@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     var puzzleImageView: UIImageView?   // holds the puzzle image
     var gameBoard = GameBoard.sharedInstance    // the gameboard data
     var screenWidth: CGFloat = 375  // screen width (placeholder)
+    var screenHeight: CGFloat = 700 // screen height (placeholder)
+    var offScreenDistance: CGFloat = 700 // distance off screen to hide
     
     // formatting variables
     let borderWidth: CGFloat = 2.0
@@ -49,8 +51,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var pointsLabel: UILabel!
-    @IBOutlet weak var levelLabel: UILabel!
+
+  
     @IBOutlet weak var difficultyView: UIView!
     @IBOutlet weak var easyButton: UIButton!
     @IBOutlet weak var mediumButton: UIButton!
@@ -92,7 +94,7 @@ class ViewController: UIViewController {
     
     @IBAction func settingsButton(_ sender: UIButton) {
         // show settings view
-        // currently omitted - necessary?
+        showSettings()
     }
     
     @IBAction func easyButton(_ sender: UIButton) {
@@ -126,6 +128,24 @@ class ViewController: UIViewController {
     }
     
     //******************************************//
+    //**********  Settings Overlay *************//
+    //******************************************//
+    
+    @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var cameraSwitch: UISwitch!
+    @IBOutlet weak var librarySwitch: UISwitch!
+    
+    @IBAction func goToSettingsButton(_ sender: UIButton) {
+        // show iPhone settings
+        let url = URL(string: UIApplicationOpenSettingsURLString)
+        UIApplication.shared.open(url!)
+    }
+    
+    @IBAction func returnToGameButton(_ sender: UIButton) {
+        hideSettings()
+    }
+    
+    //******************************************//
     //*************  View Did Load *************//
     //******************************************//
     
@@ -133,7 +153,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
             
         // initial setup
-        setScreenWidth()
+        loadSettings()
+        setScreenDimensions()
         setJumbleView()
         initializeDifficultyButtonArray()
         createPicturesCollection()
@@ -153,8 +174,11 @@ class ViewController: UIViewController {
         revealGameBoard()
     }
     
-
-
+    // Stop listening for notifications when view controller is gone
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //******************************************//
     //************  Gesture Control ************//
     //******************************************//
@@ -256,8 +280,9 @@ class ViewController: UIViewController {
     }
     
     // set the screenwidth
-    private func setScreenWidth() {
+    private func setScreenDimensions() {
         screenWidth = self.view.bounds.size.width
+        screenHeight = self.view.bounds.size.height
     }
     
     // get the imageView that holds the puzzle
@@ -514,8 +539,6 @@ class ViewController: UIViewController {
         for button in difficultyButtons {
             button.layer.cornerRadius = 15
         }
-      
-
     }
     
     // update which difficulty button is selected
@@ -577,6 +600,110 @@ class ViewController: UIViewController {
     private func updateDifficulty(difficulty: GameBoard.Difficulty) {
         resetPuzzleDifficulty(difficulty: difficulty)
         toggleDifficultyView()
+    }
+    
+    //******************************************//
+    //**************  App Settings *************//
+    //******************************************//
+    
+    private func loadSettings() {
+//        setSettingsView()
+        hideSettings()
+        initializeSettings()
+    }
+    
+//    // set the dimensions
+//    private func setSettingsView() {
+////        settingsView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+//        offScreenDistance = screenHeight
+//        hideSettings()
+//    }
+    
+    // setup the user settings
+    private func initializeSettings() {
+        // print defaults
+        printDefaults()
+        
+        // register buttons
+        registerButtons()
+        
+        // register notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDefaults), name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    // register switch buttons to handle user settings
+    private func registerButtons() {
+        cameraSwitch.addTarget(self, action: #selector(switchIsChanged), for: UIControlEvents.valueChanged)
+        librarySwitch.addTarget(self, action: #selector(switchIsChanged), for: UIControlEvents.valueChanged)
+    }
+    
+    // switch is changed -> update user defaults
+    @objc private func switchIsChanged(switchButton: UISwitch) {
+        
+        // determine which switch was changed
+        let defaultToUpdate: String = (switchButton == cameraSwitch) ? "camera_enabled_preference" : "photo_library_enabled_preference"
+        
+        // make the update in the user settings
+        if switchButton.isOn {
+            UserDefaults.standard.set(true, forKey: defaultToUpdate)
+        } else {
+            UserDefaults.standard.set(false, forKey: defaultToUpdate)
+        }
+    }
+    
+    
+    // update the defaults
+    @objc private func updateDefaults() {
+        let cameraDefault = UserDefaults.standard.bool(forKey: "camera_enabled_preference")
+        let photoLibraryDefault = UserDefaults.standard.bool(forKey: "photo_library_enabled_preference")
+        
+        cameraSwitch.setOn(cameraDefault, animated: false)
+        librarySwitch.setOn(photoLibraryDefault, animated: false)
+    }
+    
+    
+    // print defaults to console
+    private func printDefaults() {
+        
+        let defaults = UserDefaults.standard
+        let cameraEnabledPreference = defaults.string(forKey: "camera_enabled_preference")
+        let photoLibraryEnabledPreference = defaults.string(forKey: "photo_library_enabled_preference")
+        
+        print("Enabled: \(cameraEnabledPreference)")
+        print("Enabled: \(photoLibraryEnabledPreference)")
+    }
+    
+    // show the settings view
+    private func showSettings() {
+        // update defaults
+        updateDefaults()
+        
+        // make view visible
+        settingsView.isHidden = false
+        self.view.bringSubview(toFront: settingsView)
+        
+        // animate on screen
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
+            // drop down imageView
+            self.settingsView.alpha = 1.0
+        }, completion: nil)
+    }
+    
+    // hide the settings view
+    private func hideSettings() {
+        // animate off screen
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
+            // drop down imageView
+            self.settingsView.alpha = 0.0
+        }, completion: { finished in
+            
+            // make view not visible
+            self.settingsView.isHidden = true
+            self.view.sendSubview(toBack: self.settingsView)
+            
+            })
+        
+        
     }
     
     // *********************************************** //
@@ -674,9 +801,8 @@ class ViewController: UIViewController {
     
     // show an alert for game over
     func displayGameOver() {
-        let points = 100
-        let title = "Sweet!"
-        let message = "Flavor Points:\(points)"
+        let title = "Sweet"
+        let message = "Nice job!"
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(
             UIAlertAction(title: "Next Puzzle",

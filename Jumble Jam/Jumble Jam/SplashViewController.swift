@@ -11,7 +11,7 @@ import UIKit
 class SplashViewController: UIViewController {
 
     // - MARK: Properties
-    let distance: CGFloat = 750 // distance off screen to hide
+    let distance: CGFloat = 1750 // distance off screen to hide
     @IBOutlet weak var splashLabel: UILabel!
     @IBOutlet weak var splashImageView: UIImageView!
     

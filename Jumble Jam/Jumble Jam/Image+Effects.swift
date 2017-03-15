@@ -18,9 +18,7 @@ extension UIImage {
         rect.origin.y*=self.scale
         rect.size.width*=self.scale
         rect.size.height*=self.scale
-        
-        print("cropping to w: \(rect.size.width), h: \(rect.size.height)")
-        
+                
         // crop & return the image
         let imageRef = self.cgImage!.cropping(to: rect)
         let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
@@ -46,8 +44,6 @@ extension UIImage {
     func resize(newWidth: CGFloat) -> UIImage {
         let scale = newWidth / self.size.width
         let newHeight = self.size.height * scale
-        
-        print("new image w: \(newWidth), h: \(newHeight)")
         
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
         self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
