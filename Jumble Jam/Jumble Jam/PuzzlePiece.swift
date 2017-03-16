@@ -18,7 +18,11 @@ class PuzzlePiece {
         case none
     }
     
+    //******************************************//
+    //***************  Properties **************//
+    //******************************************//
     
+    // - MARK: Properties
     var openDirection: OpenDirection {    // which direction piece can move
         didSet {
             updateMovementLimitsForCenterPoint()    // update the movements available to this piece
@@ -38,6 +42,13 @@ class PuzzlePiece {
     var minY: CGFloat = 0
     var maxY: CGFloat = 0
     
+    
+    //******************************************//
+    //*****************  Init ******************//
+    //******************************************//
+    
+    // - MARK: Init
+
     init(imageView: UIImageView, correctLocation: Square, currentLocation: Square) {
         self.imageView = imageView
         self.correctLocation = correctLocation
@@ -45,6 +56,7 @@ class PuzzlePiece {
         self.openDirection = OpenDirection.none
     }
     
+    // check if is in the correct location
     func isCorrectLocation() -> Bool {
         return (self.currentLocation === self.correctLocation)  // DO I NEED TO IMPLEMENT EQUATABLE?
     }

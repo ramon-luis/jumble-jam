@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.synchronize()
         print(userDefaults.dictionaryRepresentation())
         
-        
         return true
     }
 

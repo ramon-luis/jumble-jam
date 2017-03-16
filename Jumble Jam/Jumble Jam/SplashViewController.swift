@@ -10,10 +10,19 @@ import UIKit
 
 class SplashViewController: UIViewController {
 
+    //******************************************//
+    //***************  Properties **************//
+    //******************************************//
+    
     // - MARK: Properties
+    
     let distance: CGFloat = 1750 // distance off screen to hide
     @IBOutlet weak var splashLabel: UILabel!
     @IBOutlet weak var splashImageView: UIImageView!
+    
+    //******************************************//
+    //*************  View Did Load *************//
+    //******************************************//
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +30,10 @@ class SplashViewController: UIViewController {
         hideSplashImageView()   // hide first
         animateSplash() // then animate
     }
+    
+    //******************************************//
+    //************** Hide and Show *************//
+    //******************************************//
     
     // hide the logo for animation
     private func hideSplashImageView() {

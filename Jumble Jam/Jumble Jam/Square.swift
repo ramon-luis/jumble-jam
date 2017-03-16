@@ -10,15 +10,29 @@ import UIKit
 
 class Square {
     
+    // this is currently not used
+    // possibly useful later for adding hidden power ups
     enum Status {
         case open
         case closed
     }
+    
+    //******************************************//
+    //***************  Properties **************//
+    //******************************************//
+    
+    // - MARK: Properties
 
     var square: CGRect
     var row: Int
     var col: Int
     var status: Status
+    
+    //******************************************//
+    //*****************  Init ******************//
+    //******************************************//
+    
+    // - MARK: Init
     
     init(square: CGRect, row: Int, col: Int) {
         self.square = square

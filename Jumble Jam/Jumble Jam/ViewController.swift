@@ -123,8 +123,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func powerUpBUtton(_ sender: UIButton) {
-        // show powerUp available: default is solve?
-        solvePuzzle()   // **** TEMP PLACE HOLDER ****
+        // show powerUp available: current options is solve puzzle
+        // this will later be updated based on hidden power ups inside puzzle
+        solvePuzzle()
     }
     
     //******************************************//
@@ -153,18 +154,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
             
         // initial setup
-        loadSettings()
-        setScreenDimensions()
-        setJumbleView()
-        initializeDifficultyButtonArray()
-        createPicturesCollection()
-        setPictureCollectionDelegateAndDataSource()
+        initialSetup()
         
         // set the puzzleImage and difficulty
         let puzzleImage = getRandomPicture()
         let difficulty = GameBoard.Difficulty.Easy
         
-        // update hich one is selected
+        // update which one is selected
         updateDifficultyButtons()
         
         // create the gameboard
@@ -276,7 +272,12 @@ class ViewController: UIViewController {
     
     // setup the inital items for the game
     private func initialSetup() {
-        
+        loadSettings()
+        setScreenDimensions()
+        setJumbleView()
+        initializeDifficultyButtonArray()
+        createPicturesCollection()
+        setPictureCollectionDelegateAndDataSource()
     }
     
     // set the screenwidth
@@ -607,18 +608,11 @@ class ViewController: UIViewController {
     //******************************************//
     
     private func loadSettings() {
-//        setSettingsView()
         hideSettings()
         initializeSettings()
     }
     
-//    // set the dimensions
-//    private func setSettingsView() {
-////        settingsView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
-//        offScreenDistance = screenHeight
-//        hideSettings()
-//    }
-    
+
     // setup the user settings
     private func initializeSettings() {
         // print defaults

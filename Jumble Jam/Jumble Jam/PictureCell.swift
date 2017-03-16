@@ -11,6 +11,7 @@ import UIKit
 class PictureCell: UICollectionViewCell {
     
     // MARK: - Properties
+    
     @IBOutlet weak var pictureImageView: UIImageView!
     
 }

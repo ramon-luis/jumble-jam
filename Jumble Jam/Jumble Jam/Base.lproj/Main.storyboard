@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -77,8 +78,8 @@
                                             <action selector="pictureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KVX-Vx-5eh"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="JumbleJamLogoW" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-uE-38m" userLabel="LogoImageView">
-                                        <rect key="frame" x="0.0" y="17" width="319" height="109"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JumbleJamLogoW" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-uE-38m" userLabel="LogoImageView">
+                                        <rect key="frame" x="1" y="17" width="319" height="109"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="109" id="XYr-ST-meL"/>
                                             <constraint firstAttribute="width" constant="319" id="ZzL-nE-DjU"/>
@@ -124,6 +125,7 @@
                                     <constraint firstItem="hYH-uE-38m" firstAttribute="centerX" secondItem="Z0h-PP-kZg" secondAttribute="centerX" id="5Q0-zg-eqC"/>
                                     <constraint firstAttribute="trailing" secondItem="QfU-XF-4IK" secondAttribute="trailing" constant="8" id="FpE-5I-bS2"/>
                                     <constraint firstItem="8wJ-wP-saD" firstAttribute="trailing" secondItem="Z0h-PP-kZg" secondAttribute="trailing" constant="-8" id="IUF-yK-QzA"/>
+                                    <constraint firstItem="hYH-uE-38m" firstAttribute="top" secondItem="Z0h-PP-kZg" secondAttribute="top" constant="17" id="btc-aw-DZl"/>
                                     <constraint firstItem="LCA-o9-MCE" firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="c9V-ya-tmS"/>
                                     <constraint firstItem="cZI-Sr-61x" firstAttribute="leading" secondItem="Z0h-PP-kZg" secondAttribute="leading" constant="8" id="cE8-ig-DvO"/>
                                     <constraint firstItem="8wJ-wP-saD" firstAttribute="bottom" secondItem="Z0h-PP-kZg" secondAttribute="bottom" id="eEU-oV-hCT"/>
@@ -173,16 +175,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBh-gp-dFQ" userLabel="Pictures Header View">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a Picture to Jumble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHx-uh-oTu" userLabel="Choose a Picture">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Choose a Picture to Jumble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHx-uh-oTu" userLabel="Choose a Picture">
                                                 <rect key="frame" x="66" y="6" width="196" height="20"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8T-nb-gWE" userLabel="Picture Button">
+                                            <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8T-nb-gWE" userLabel="Picture Button">
                                                 <rect key="frame" x="8" y="2" width="40" height="28"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="r8T-nb-gWE" secondAttribute="height" multiplier="10:7" id="1gV-lp-L7S"/>
+                                                    <constraint firstAttribute="height" constant="28" id="DV2-JB-tDN"/>
+                                                    <constraint firstAttribute="width" constant="40" id="itK-gb-vfR"/>
+                                                </constraints>
                                                 <state key="normal" image="CameraIcon">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -190,9 +195,13 @@
                                                     <action selector="cameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITm-gH-ef9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phL-JJ-SwT" userLabel="Cancel Button">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phL-JJ-SwT" userLabel="Cancel Button">
                                                 <rect key="frame" x="277" y="2" width="35" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="phL-JJ-SwT" secondAttribute="height" multiplier="7:6" id="BfU-k9-Bjw"/>
+                                                    <constraint firstAttribute="width" constant="35" id="YMJ-cU-0pv"/>
+                                                    <constraint firstAttribute="height" constant="30" id="gpP-Ct-uAk"/>
+                                                </constraints>
                                                 <state key="normal" backgroundImage="CancelIcon"/>
                                                 <connections>
                                                     <action selector="cancelPicturesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y0d-Qd-RlV"/>
@@ -201,6 +210,12 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="phL-JJ-SwT" firstAttribute="centerY" secondItem="gBh-gp-dFQ" secondAttribute="centerY" id="Bez-z4-CJX"/>
+                                            <constraint firstItem="IHx-uh-oTu" firstAttribute="centerY" secondItem="gBh-gp-dFQ" secondAttribute="centerY" id="Mmq-Sw-vsC"/>
+                                            <constraint firstItem="IHx-uh-oTu" firstAttribute="centerX" secondItem="gBh-gp-dFQ" secondAttribute="centerX" id="PrU-pa-Ird"/>
+                                            <constraint firstItem="phL-JJ-SwT" firstAttribute="trailing" secondItem="gBh-gp-dFQ" secondAttribute="trailing" constant="-8" id="ZvY-XM-LVf"/>
+                                            <constraint firstItem="r8T-nb-gWE" firstAttribute="leading" secondItem="gBh-gp-dFQ" secondAttribute="leading" constant="8" id="aIB-1A-Cty"/>
+                                            <constraint firstItem="r8T-nb-gWE" firstAttribute="centerY" secondItem="gBh-gp-dFQ" secondAttribute="centerY" id="d7K-uY-2Ce"/>
                                             <constraint firstAttribute="height" constant="38" id="tcS-h0-TZ4"/>
                                         </constraints>
                                     </view>

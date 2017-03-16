@@ -9,10 +9,11 @@
 import Foundation
 
 // REQUIRED:
+// - marketing write up - DONE
+// - executive summary - DONE
+// - extract attributions - DONE
 // - print to console when button is pushed
-// - marketing write up
-// - executive summary
-// - extract attributions
+// - connect av permssions to user defaults?
 // - store date of initialization?
 
 

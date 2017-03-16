@@ -18,6 +18,10 @@ class GameBoard {
         case Extreme = 6
     }
     
+    //******************************************//
+    //***************  Properties **************//
+    //******************************************//
+    
     // - MARK: Properties
     var difficulty: Difficulty = Difficulty.Easy
     var screenWidth: CGFloat = 375  // placeholder
@@ -34,9 +38,20 @@ class GameBoard {
         }
     }
     
+    //******************************************//
+    //************  Init - Singleton ***********//
+    //******************************************//
+    
+    // - MARK: Init
+    
     // singleton
     static let sharedInstance = GameBoard()
     private init() {}
+    
+    //******************************************//
+    //************  Public Functions ***********//
+    //******************************************//
+    
     
     // create a gameBoard
     func create(screenWidth: CGFloat, puzzleImage: UIImage, difficulty: Difficulty) {
@@ -141,9 +156,10 @@ class GameBoard {
         // no pieces in wrong location: solved
         return true
     }
-
     
-    // ****** PRIVATE BELOW ******
+    //******************************************//
+    //***********  Private Functions ***********//
+    //******************************************//
     
     // reset the gameBoard
     private func reset() {
