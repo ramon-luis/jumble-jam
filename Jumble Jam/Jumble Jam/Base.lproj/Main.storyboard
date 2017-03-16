@@ -79,7 +79,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JumbleJamLogoW" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-uE-38m" userLabel="LogoImageView">
-                                        <rect key="frame" x="1" y="17" width="319" height="109"/>
+                                        <rect key="frame" x="0.5" y="17" width="319" height="109"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="109" id="XYr-ST-meL"/>
                                             <constraint firstAttribute="width" constant="319" id="ZzL-nE-DjU"/>
@@ -399,7 +399,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="mji-UL-ROW" firstAttribute="centerY" secondItem="ZII-Ku-dPr" secondAttribute="centerY" id="RJw-0H-FzW"/>
-                                                    <constraint firstItem="mji-UL-ROW" firstAttribute="trailing" secondItem="ZII-Ku-dPr" secondAttribute="trailing" id="dlE-XJ-EKd"/>
+                                                    <constraint firstItem="mji-UL-ROW" firstAttribute="trailing" secondItem="ZII-Ku-dPr" secondAttribute="trailing" constant="2" id="dlE-XJ-EKd"/>
                                                     <constraint firstItem="PB0-La-0Zp" firstAttribute="centerY" secondItem="ZII-Ku-dPr" secondAttribute="centerY" id="j7W-rp-wrN"/>
                                                     <constraint firstAttribute="height" constant="60" id="jBt-Wn-L8z"/>
                                                     <constraint firstItem="PB0-La-0Zp" firstAttribute="leading" secondItem="ZII-Ku-dPr" secondAttribute="leading" id="zs4-Fr-E5D"/>
@@ -409,7 +409,7 @@
                                                 <rect key="frame" x="0.0" y="90" width="310" height="60"/>
                                                 <subviews>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="feA-ps-Lm2">
-                                                        <rect key="frame" x="236" y="15" width="51.000000000000028" height="31.000000000000028"/>
+                                                        <rect key="frame" x="239" y="15" width="51" height="31"/>
                                                     </switch>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Access to Photo Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTU-FQ-TIf">
                                                         <rect key="frame" x="0.0" y="20" width="253" height="21"/>
@@ -423,7 +423,7 @@
                                                     <constraint firstItem="QTU-FQ-TIf" firstAttribute="leading" secondItem="PBV-Pv-tvI" secondAttribute="leading" id="JLJ-Tk-dfv"/>
                                                     <constraint firstItem="QTU-FQ-TIf" firstAttribute="centerY" secondItem="PBV-Pv-tvI" secondAttribute="centerY" id="WSz-CX-tbp"/>
                                                     <constraint firstAttribute="height" constant="60" id="Wbo-Fm-thC"/>
-                                                    <constraint firstItem="feA-ps-Lm2" firstAttribute="trailing" secondItem="PBV-Pv-tvI" secondAttribute="trailing" id="YyY-6T-VnF"/>
+                                                    <constraint firstItem="feA-ps-Lm2" firstAttribute="trailing" secondItem="PBV-Pv-tvI" secondAttribute="trailing" constant="2" id="YyY-6T-VnF"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTQ-Zg-q3Q">

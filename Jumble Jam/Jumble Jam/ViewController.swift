@@ -641,22 +641,38 @@ class ViewController: UIViewController {
     
     // register switch buttons to handle user settings
     private func registerButtons() {
-        cameraSwitch.addTarget(self, action: #selector(switchIsChanged), for: UIControlEvents.valueChanged)
-        librarySwitch.addTarget(self, action: #selector(switchIsChanged), for: UIControlEvents.valueChanged)
+        cameraSwitch.addTarget(self, action: #selector(cameraSwitchIsChanged), for: UIControlEvents.valueChanged)
+        librarySwitch.addTarget(self, action: #selector(librarySwitchIsChanged), for: UIControlEvents.valueChanged)
     }
     
     // switch is changed -> update user defaults
-    @objc private func switchIsChanged(switchButton: UISwitch) {
+    @objc private func cameraSwitchIsChanged(switchButton: UISwitch) {
         
         // determine which switch was changed
-        let defaultToUpdate: String = (switchButton == cameraSwitch) ? "camera_enabled_preference" : "photo_library_enabled_preference"
+        let defaultToUpdate: String = "camera_enabled_preference"
         
         // make the update in the user settings
         if switchButton.isOn {
-            print("switch button changed to true")
+            print("switch button changed to true for \(defaultToUpdate)")
             UserDefaults.standard.set(true, forKey: defaultToUpdate)
         } else {
-            print("switch button changed to false")
+            print("switch button changed to false for \(defaultToUpdate)")
+            UserDefaults.standard.set(false, forKey: defaultToUpdate)
+        }
+    }
+    
+    // switch is changed -> update user defaults
+    @objc private func librarySwitchIsChanged(switchButton: UISwitch) {
+        
+        // determine which switch was changed
+        let defaultToUpdate: String = "photo_library_enabled_preference"
+        
+        // make the update in the user settings
+        if switchButton.isOn {
+            print("switch button changed to true for \(defaultToUpdate)")
+            UserDefaults.standard.set(true, forKey: defaultToUpdate)
+        } else {
+            print("switch button changed to false for \(defaultToUpdate)")
             UserDefaults.standard.set(false, forKey: defaultToUpdate)
         }
     }
@@ -664,6 +680,7 @@ class ViewController: UIViewController {
     
     // update the defaults
     @objc private func updateDefaults() {
+        print("updateDefaults called")
         let cameraDefault = UserDefaults.standard.bool(forKey: "camera_enabled_preference")
         let photoLibraryDefault = UserDefaults.standard.bool(forKey: "photo_library_enabled_preference")
         
@@ -671,6 +688,15 @@ class ViewController: UIViewController {
         librarySwitch.setOn(photoLibraryDefault, animated: false)
     }
     
+    // check if access to photo library is allowed
+    private func isAllowedAccessLibrary() -> Bool {
+        return UserDefaults.standard.bool(forKey: "photo_library_enabled_preference")
+    }
+    
+    // check if acess to camera is allowed
+    private func isAllowedAcessCamera() -> Bool {
+        return UserDefaults.standard.bool(forKey: "camera_enabled_preference")
+    }
     
     // print defaults to console
     private func printDefaults() {
@@ -756,8 +782,12 @@ class ViewController: UIViewController {
                 handler: {
                     action in
                     if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
-                        self.imagePicker.sourceType = .camera
-                        self.present(self.imagePicker, animated: true, completion: nil)
+                        if (self.isAllowedAcessCamera()) {
+                            self.imagePicker.sourceType = .camera
+                            self.present(self.imagePicker, animated: true, completion: nil)
+                        } else {
+                            self.showNeedPermission()
+                        }
                     } else {
                         self.noCameraAlert()
                     }
@@ -772,8 +802,12 @@ class ViewController: UIViewController {
                 style: .default,
                 handler: {
                     action in
-                    self.imagePicker.sourceType = .photoLibrary
-                    self.present(self.imagePicker, animated: true, completion: nil)
+                    if (self.isAllowedAccessLibrary()) {
+                        self.imagePicker.sourceType = .photoLibrary
+                        self.present(self.imagePicker, animated: true, completion: nil)
+                    } else {
+                        self.showNeedPermission()
+                    }
             }
             )
         )
@@ -823,7 +857,28 @@ class ViewController: UIViewController {
                     let puzzleImage = self.getRandomPicture()
                     self.resetPuzzleImage(puzzleImage: puzzleImage)
 
-            }))
+                }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // show an alert that permission is not allowed
+    private func showNeedPermission() {
+        let title = "Permission Needed"
+        let message = "Please go to Settings and enable access in order to use this feature."
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(
+            UIAlertAction(title: "Okay",
+                          style: UIAlertActionStyle.default,
+                          handler: nil))
+        
+        alert.addAction(
+            UIAlertAction(title: "Settings",
+                          style: UIAlertActionStyle.default,
+                          handler:
+                { action in
+                    self.showSettings()
+                }))
+
         self.present(alert, animated: true, completion: nil)
     }
     
