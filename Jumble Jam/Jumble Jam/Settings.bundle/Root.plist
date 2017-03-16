@@ -32,6 +32,14 @@
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Initial Launch</string>
+			<key>Key</key>
+			<string>initial_launch</string>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -8,6 +8,7 @@
 
 import UIKit
 import GameKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -69,62 +70,73 @@ class ViewController: UIViewController {
     
     @IBAction func pictureButton(_ sender: UIButton) {
         // show or hide pictureView to select new picture for puzzle
+        print("button pressed: toggle view to select pictures from collection view")
         togglePictureView()
     }
     
     @IBAction func cancelPicturesButton(_ sender: UIButton) {
         // show or hide pictureView to select new picture for puzzle
+        print("button pressed: cancel view to select pictures from collection view")
         togglePictureView()
     }
     
     @IBAction func difficultyButton(_ sender: UIButton) {
         // show or hide difficulty to select new difficulty setting
+        print("button pressed: toggle view to select difficulty")
         toggleDifficultyView()
     }
     
     @IBAction func cameraButton(_ sender: UIButton) {
         // show photo alert to reset puzzle based on camera or existing user pictures
+        print("button pressed: choose own picture from Camera or Photo Library")
         showPhotoAlert()
     }
 
     @IBAction func infoButton(_ sender: UIButton) {
         // show instructions view
-        // currently omitted - necessary?
+        // currently omitted intentionally - application shows instructions on main screen for simplicity
     }
     
     @IBAction func settingsButton(_ sender: UIButton) {
         // show settings view
+        print("button pressed: show settings view")
         showSettings()
     }
     
     @IBAction func easyButton(_ sender: UIButton) {
+        print("button pressed: change settings to easy, show jumble alert before proceeding")
         let difficulty = GameBoard.Difficulty.Easy
         showDifficultyWarning(sender: sender, difficulty: difficulty)
         
     }
     
     @IBAction func mediumButton(_ sender: UIButton) {
+        print("button pressed: change settings to medium, show jumble alert before proceeding")
         let difficulty = GameBoard.Difficulty.Medium
         showDifficultyWarning(sender: sender, difficulty: difficulty)
     }
     
     @IBAction func hardButton(_ sender: UIButton) {
+        print("button pressed: change settings to hard, show jumble alert before proceeding")
         let difficulty = GameBoard.Difficulty.Hard
         showDifficultyWarning(sender: sender, difficulty: difficulty)
     }
     
     @IBAction func extremeButton(_ sender: UIButton) {
+        print("button pressed: change settings to extreme, show jumble alert before proceeding")
         let difficulty = GameBoard.Difficulty.Extreme
         showDifficultyWarning(sender: sender, difficulty: difficulty)
     }
     
     @IBAction func jumbleButton(_ sender: UIButton) {
+        print("button pressed: jumble pieces")
         jumblePuzzlePieces()
     }
     
     @IBAction func powerUpBUtton(_ sender: UIButton) {
         // show powerUp available: current options is solve puzzle
         // this will later be updated based on hidden power ups inside puzzle
+        print("button pressed: power up, currently solve puzzle")
         solvePuzzle()
     }
     
@@ -138,11 +150,13 @@ class ViewController: UIViewController {
     
     @IBAction func goToSettingsButton(_ sender: UIButton) {
         // show iPhone settings
+        print("button pressed: open iPhone settings")
         let url = URL(string: UIApplicationOpenSettingsURLString)
         UIApplication.shared.open(url!)
     }
     
     @IBAction func returnToGameButton(_ sender: UIButton) {
+        print("button pressed: hide settings and return to game")
         hideSettings()
     }
     
@@ -639,8 +653,10 @@ class ViewController: UIViewController {
         
         // make the update in the user settings
         if switchButton.isOn {
+            print("switch button changed to true")
             UserDefaults.standard.set(true, forKey: defaultToUpdate)
         } else {
+            print("switch button changed to false")
             UserDefaults.standard.set(false, forKey: defaultToUpdate)
         }
     }
@@ -660,11 +676,13 @@ class ViewController: UIViewController {
     private func printDefaults() {
         
         let defaults = UserDefaults.standard
+        let initialLaunch = defaults.string(forKey: "initial_launch")
         let cameraEnabledPreference = defaults.string(forKey: "camera_enabled_preference")
         let photoLibraryEnabledPreference = defaults.string(forKey: "photo_library_enabled_preference")
         
-        print("Enabled: \(cameraEnabledPreference)")
-        print("Enabled: \(photoLibraryEnabledPreference)")
+        print("Initial Launch: \(initialLaunch)")
+        print("Camera Access Enabled: \(cameraEnabledPreference)")
+        print("Photo Library Access Enabled: \(photoLibraryEnabledPreference)")
     }
     
     // show the settings view
@@ -696,10 +714,9 @@ class ViewController: UIViewController {
             self.view.sendSubview(toBack: self.settingsView)
             
             })
-        
-        
     }
     
+
     // *********************************************** //
     // ***************** ALERTS ********************** //
     // *********************************************** //

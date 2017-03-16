@@ -24,6 +24,7 @@ other iPhone shapes accordingly.
 - custom splashcreen
 - settings bundle to manage user preference for access to Camera and Photo Library
 .. - default settings are registered at launch
+.... - initial launch date is stored in settings as read only property
 .. - users can set settings inside the application or the main iPhone settings
 - information / instructions on the main screen
 - simple, single view interface

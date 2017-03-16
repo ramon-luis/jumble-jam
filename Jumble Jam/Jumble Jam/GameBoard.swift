@@ -168,6 +168,7 @@ class GameBoard {
     }
     // create gameBoard data
     private func createData() {
+        print("creating new gameBoard squares, images, and puzzle pieces")
         createSquares()
         createImagePieces()
         createPuzzlePieces()
@@ -176,6 +177,7 @@ class GameBoard {
     
     // remove gameBoard data
     private func removeData() {
+        print("removing gameBoard squares, images, and puzzle pieces")
         squares.removeAll()
         imagePieces.removeAll()
         puzzlePieces.removeAll()

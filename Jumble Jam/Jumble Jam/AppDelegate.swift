@@ -17,9 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // Register default values for settings
+        // define user defaults
         let userDefaults = UserDefaults.standard
-        let defaults: [String: Any] = ["camera_enabled_preference": true,  "photo_library_enabled_preference" : true]
+        
+        
+        
+        // get today's date formatted
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        var initialLaunch = formatter.string(from: date)
+
+        // update existing launch date if its older then today or doesn't exist
+        if let existingLaunch: String = userDefaults.string(forKey: "initial_launch") {
+            if (Int(existingLaunch)! < Int(initialLaunch)!) {
+                initialLaunch = existingLaunch
+            }
+        }
+        
+        // Register default values for settings
+        let defaults: [String: Any] = ["initial_launch" : initialLaunch, "camera_enabled_preference": true,  "photo_library_enabled_preference" : true]
         
         userDefaults.register(defaults: defaults)
         userDefaults.synchronize()
