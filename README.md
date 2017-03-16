@@ -53,9 +53,9 @@ other iPhone shapes accordingly.
 
 
 ### Attributions:
-[https://drive.google.com/file/d/0B3XzcKIiWyccTDY4N2Jtb0RaMms/view]
-[http://stackoverflow.com/questions/6110470/how-to-allow-the-user-to-pick-a-photo-from-his-camera-roll-or-photo-library]
-[https://www.raywenderlich.com/136159/uicollectionview-tutorial-getting-started]
-[http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift/24029847#24029847]
-[http://stackoverflow.com/questions/39310729/problems-with-cropping-a-uiimage-in-swift]
-[https://gist.github.com/cuxaro/20a5b9bbbccc46180861e01aa7f4a267]
+- https://drive.google.com/file/d/0B3XzcKIiWyccTDY4N2Jtb0RaMms/view
+- http://stackoverflow.com/questions/6110470/how-to-allow-the-user-to-pick-a-photo-from-his-camera-roll-or-photo-library
+- https://www.raywenderlich.com/136159/uicollectionview-tutorial-getting-started
+- http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift/24029847#24029847
+- http://stackoverflow.com/questions/39310729/problems-with-cropping-a-uiimage-in-swift
+- https://gist.github.com/cuxaro/20a5b9bbbccc46180861e01aa7f4a267
