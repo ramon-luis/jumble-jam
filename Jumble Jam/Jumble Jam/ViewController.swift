@@ -798,7 +798,7 @@ class ViewController: UIViewController {
         // action to add photo using library
         alert.addAction(
             UIAlertAction(
-                title: "Use Photo Lirbrary",
+                title: "Use Photo Library",
                 style: .default,
                 handler: {
                     action in
