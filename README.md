@@ -35,4 +35,4 @@ This was a fun project to test out some Swift functionality, such as:
 
 ## Acknowledgments
 
-* Thanks to Andrew Binkowski at University of Chicago for teaching me all about iOS
+* Thanks to Andrew Binkowski at University of Chicago
