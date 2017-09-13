@@ -1,12 +1,10 @@
 # Jumble Jam
 
-Jumble Jam is an iOS application that creates slider puzzles from images.  Users can 
-select from 40+ beautiful images that come bundled with the game for free or use their 
-own image from their personal Photo Library or Camera.
+Jumble Jam is an iOS application that creates slider puzzles from images.  Users can select from 40+ beautiful images that come bundled with the game for free or use their own image from their personal Photo Library or Camera.  
 
-The application is designed to work in portrait mode for iPhones.  The formatting was
-designed to work on an iPhone 5SE with auto-layout constraints that should adapt to
-other iPhone shapes accordingly.
+The application is designed to work in portrait mode for iPhones.  The formatting was designed to work on an iPhone 5SE with auto-layout constraints that should adapt to other iPhone shapes accordingly.
+
+![Jumble Jam Screenshot 3](https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-3.png "Jumble Jam Screenshot 3")
 
 ## Getting Started / Installing / Deployment
 
