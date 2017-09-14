@@ -4,7 +4,10 @@ Jumble Jam is an iOS application that creates slider puzzles from images.  Users
 
 The application is designed to work in portrait mode for iPhones.  The formatting was designed to work on an iPhone 5SE with auto-layout constraints that should adapt to other iPhone shapes accordingly.
 
-![Jumble Jam Screenshot 3](https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-3.png "Jumble Jam Screenshot 3")
+<kbd>
+	<img src="https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-1.png">
+</kbd>
+<br />
 
 ## Getting Started / Installing / Deployment
 
