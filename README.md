@@ -8,6 +8,17 @@ The application is designed to work in portrait mode for iPhones.  The formattin
 	<img src="https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-1.png">
 </kbd>
 <br />
+<br />
+<kbd>
+	<img src="https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-2.png">
+</kbd>
+<br />
+<br />
+<kbd>
+	<img src="https://github.com/ramon-luis/jumble-jam/raw/master/demo/jumble-jam-screenshot-3.png">
+</kbd>
+<br />
+<br />
 
 ## Getting Started / Installing / Deployment
 
